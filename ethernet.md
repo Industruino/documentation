@@ -4,7 +4,7 @@
 
 The Industruino Ethernet module has several functions:
 1. [Ethernet](#ethernet2-library) interface
-2. [FRAM](#fram) memory
+2. [FRAM](#fram) non-volatile memory
 3. [SD card](#sd-card) interface
 
 
@@ -38,7 +38,7 @@ If you are using the Industruino Ethernet module with legacy 32u4 or 1286 topboa
 
 # FRAM
 
-The Ethernet module also includes FRAM: see this [demo sketch](https://github.com/Industruino/democode/tree/master/fram_D21G). 
+The Ethernet module also includes FRAM non-volatile memory: see this [demo sketch](https://github.com/Industruino/democode/tree/master/fram_D21G). 
 
 
 For legacy 32u4/1286 the example is in the EthernetIndustruino library. If you want to use the FRAM together with the Ethernet, there is no need to include the SPI settings as in the FRAM example, because this is taken care of in the Ethernet library. So you can just include the 2 libraries with the above 2 lines; DO NOT include the SPI settings as in the FRAM example:
