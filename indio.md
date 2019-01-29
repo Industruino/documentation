@@ -109,9 +109,9 @@ U8G2_UC1701_MINI12864_F_4W_HW_SPI u8g2(U8G2_R2, /* cs=*/ 19, /* dc=*/ 22);
 
 # Indio
 
-##### Important notes:    
-##### The digital and analog I/O will only work when Vin power (6.5-32V) is supplied to the Indio baseboard via the green screw connectors. When only USB power is connected, none of the digital or analog channels, nor the RS485, will work.  
-##### It is important to power down all systems (Industruino, sensors/actuators) before making connections to the Industruino.
+Important notes:    
+1. The digital and analog I/O will only work when Vin power (6.5-32V) is supplied to the Indio baseboard via the green screw connectors. When only USB power is connected, none of the digital or analog channels, nor the RS485, will work.  
+2. It is important to power down all systems (Industruino, sensors/actuators) before making connections to the Industruino.
 
 You can download the library from within the Arduino libraries manager or from [this repository](https://github.com/Industruino/Indio).
 
@@ -334,8 +334,9 @@ void loop() {
 
 ### ANALOG INPUT
 
-##### Important note:    
-##### The analog I/O section is galvanically isolated from the digital I/O section and the microcontroller section, to allow a separate power supply in the analog section for optimal accuracy. In case your analog sensors/actuators are on the same power supply as the digital section (Vin 12/24V) you have to connect the analog GND to the digital GND.
+Important notes:    
+1. The analog I/O section is galvanically isolated from the digital I/O section and the microcontroller section, to allow a separate power supply in the analog section for optimal accuracy. In case your analog sensors/actuators are on the same power supply as the digital section (Vin 12/24V) you have to connect the analog GND to the digital GND.
+2. The accuracy of the input and output can be improved by calibration (see below).
 
 Configuration of resolution (to be done BEFORE configuration of the input mode):
 ```
