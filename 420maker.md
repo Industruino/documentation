@@ -1,33 +1,36 @@
 # Industruino 4-20mAker product documentation
 
-*Current version: HW REV: ??, FW REV: 3??*
+*Current version: HW REV: ??, FW REV: ??*
 
 1. Setting up the Arduino [IDE](#setting-up-the-arduino-ide)
 2. [Wiring](#wiring-example) example
 3. [SAML](#saml-board-specific-features) specific features
 4. [GPIO](#gpio) pinout
 5. [WDT](#wdt)
+6. [Application notes](#application-notes)
 
 For datasheets, user manuals, pinout maps, see [industruino.com](https://industruino.com/page/techcentre)
 
 ![420maker](https://industruino.com/website/image/product.template/2_cd53b8d/image)
 
+
 # Setting up the Arduino IDE
 
-D21G is compatible with IDE from 1.6.12 with automatic install via board manager: 
-* In *File > Preferences > Additional Boards Manager URLs:* add https://static.industruino.com/downloads/code/IndustruinoCores/IndustruinoSAMD/pkgdef/package_industruino_samd_index.json 
+The 4-20mAker is compatible with the Arduino IDE with automatic install via board manager: 
+* In *File > Preferences > Additional Boards Manager URLs:* add https://static.industruino.com/downloads/code/IndustruinoCores/IndustruinoSAML/pkgdef/package_industruino_saml_index.json 
 * Enter the Board Manager via *Tools > Board* and search for 'industruino'
 * Install the Industruino SAML package
 * *Industruino 4-20mAker* will show up in the Boards list in *Tools > Board* in section *Industruino SAML*
 
 Important notes:
-1. The 4-20mAker needs to be connected to a power source in order to switch on and be detected by the computer; the USB connection does not power it up
+1. The 4-20mAker needs to be connected to a power source in order to switch on and be detected by the computer; the USB connection does not power it up.
+2. While the USB is connected, the 4-20mAker output is stuck at around 1mA; as soon as the USB is disconnected, it will output the coded value. 
 
 
 # Wiring example
 
 When using the 4-20mAker with the IND.I/O analog input channels, this is the default wiring for the current loop, using the same power supply for both devices:
-* IND.I/O V+ (12/24V) <-> 4-20mAker V+
+* IND.I/O V+ (24V) <-> 4-20mAker V+
 * 4-20mAker V- <-> IND.I/O analog input channel
 * IND.I/O V- (GND) <-> IND.I/O analog GND
 
@@ -97,3 +100,16 @@ To clear the WDT:
 ```
 
 
+# Application notes
+
+## Current range
+
+The 4-20mAker can output a range from 3.8 to 21mA.
+However, if devices connected to it draw more than a few mA (e.g. an RC522 RFID reader) then the 4-20mAker will not be able to reach the lower end of the current range. A simple solution is to reduce the output range to e.g. 10-20mA.
+
+## NAMUR NE43 compliance
+
+The 4-20mAker can comply with the NAMUR NE43 standard to signal sensor failure:
+* output < 3.6mA means sensor failure
+* output between 3.8mA and 20.5mA means valid sensor information
+* output > 21mA means sensor failure
