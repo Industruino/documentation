@@ -369,8 +369,9 @@ Please note that the output of the Indio.analogRead() in RAW mode is not of the 
 
 ### ANALOG OUTPUT
 
-##### Important note:   
-#####The analog I/O section is galvanically isolated from the digital I/O section and the microcontroller section, to allow a separate power supply in the analog section for optimal accuracy. In case your analog sensors/actuators are on the same power supply as the digital section (Vin 12/24V) you have to connect the analog GND to the digital GND.
+Important notes:   
+1. The analog I/O section is galvanically isolated from the digital I/O section and the microcontroller section, to allow a separate power supply in the analog section for optimal accuracy. In case your analog sensors/actuators are on the same power supply as the digital section (Vin 12/24V) you have to connect the analog GND to the digital GND.
+2. The accuracy of the input and output can be improved by calibration (see below).
 
 The DAC resolution is 12 bits.
 
@@ -396,7 +397,7 @@ Indio.analogWrite(1, 2048, true);   //Set CH1 DAC to integer value 2048 (approx 
 ```
 
 
-### Analog calibration
+### ANALOG CALIBRATION
 
 Please find the calibration data array inside the Indio.cpp library file (as below), together with this explanation on how to perform the calibration. The library is preloaded with calibration data but characteristics are board specific thus reading with standard calibration data might be off. You are advised to update the calibration arrays in your own Indio.cpp file. We provide a sketch to assist with this [here](https://github.com/Industruino/Indio/tree/master/examples/Indio_AnalogCalibration).
 
