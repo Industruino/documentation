@@ -38,9 +38,10 @@ D21G is compatible with IDE from 1.6.12 with automatic install via board manager
   * `SerialUSB` for USB (Serial Monitor)
   * `Serial` for hardware serial on D0/D1
   * `Serial1` for hardware serial on D10/D5
-* LCD backlight on D26 
+* The LCD is connected over SPI to pins D19,D20,D21,D22
+* LCD backlight is on D26
+* The membrane buttons are on D23,D24,D25
 * Hardware Timers of the Industruino D21G are similar to the Arduino Zero, see this [blog post](https://industruino.com/blog/our-news-1/post/d21g-timer-library-33).
-* [D21G PROTO kit](#proto): notes on digital and analog input/output 
 * The pre-loaded demo code is available at https://github.com/Industruino/democode
 
 
@@ -73,11 +74,9 @@ Unlike the IND.I/O's digital and analog I/O channels, the IDC expansion port pro
 | 14	| / | D3/SCL |	PROTO: no	<br> IND.I/O: yes | used for I2C RTC|
 
 
-
 # UC1701
-You can download the library from within the Arduino libraries manager or from [this repository](https://github.com/Industruino/UC1701).
-The Industruino LCD is connected over SPI to the pins D19,20,21,22 (and the backlight to D13 on 32u4 boards and D26 on 1286 boards). We suggest you use either of these 2 libraries:
-* our customised UC1701 library (available in this repository): easy to use, relatively small (it is also used in the Industruino pre-installed demo sketches). it is largely compatible with the popular PCD8544 (Nokia screens). familiar syntax:  
+
+You can download the library from within the Arduino libraries manager or from [this repository](https://github.com/Industruino/UC1701). This library is easy to use, relatively small (it is also used in the Industruino pre-installed demo sketches). It is largely compatible with the popular PCD8544 (Nokia screens), with familiar syntax:  
 ```
 lcd.begin();  
 lcd.clear();  
@@ -85,7 +84,9 @@ lcd.setCursor(1, 1);
 lcd.print("hello Industruino!");
 ```
 
+
 # U8G and U8G2
+
 [U8G](https://github.com/olikraus/u8glib) is a popular display library with many fonts and graphics, consuming more memory than the basic UC1701 above. Use this constructor:
 ```
 U8GLIB_MINI12864 u8g(21, 20, 19, 22);	// SPI Com: SCK = 21, MOSI = 20, CS = 19, A0 = 22
@@ -111,7 +112,7 @@ U8G2_UC1701_MINI12864_F_4W_HW_SPI u8g2(U8G2_R2, /* cs=*/ 19, /* dc=*/ 22);
 
 You can download the library from within the Arduino libraries manager or from [this repository](https://github.com/Industruino/Indio).
 
-If you are using the Industruino IND.I/O product, you will need this library to access the I/O channels. The pins on the IDC expansion connector, the backlight pin, and the membrane panel buttons pin(s) should still be accessed in the usual way, not using the Indio library; the Indio library is only for the external I/O channels available on the green screw connectors.
+You will need this library to access the I/O channels. The pins on the IDC expansion connector, the backlight pin, and the membrane panel buttons should still be accessed in the usual way, not using the Indio library; the Indio library is only for the external I/O channels available on the green screw connectors.
 
 The Indio board uses an I2C expander for the I/O channels so we also need the Wire library.
 ```
@@ -361,6 +362,7 @@ Indio.analogRead(1);              //Read Analog-In CH1 (output depending on sele
 ```
 Please note that the output of the Indio.analogRead() in RAW mode is not of the type INTEGER, but FLOAT. The output range is fixed from 0 to 4096 for all resolutions, but only in 12-bit mode this returns integers; for higher resolution the measurements are floating point numbers.
 
+
 ### ANALOG OUTPUT
 
 ##### Important note:   
@@ -438,7 +440,7 @@ const int DAC_current_high_uA[3] = {0,19530,19530}; //corresponding uA for high 
 ```
 
 
-### RS485
+# RS485
 
 RS485 is a popular industrial network standard and the INDIO features a half duplex RS485 transceiver. It is often used with the Modbus protocol, so-called Modbus RTU (as opposed to Modbus TCP which uses Ethernet). The Master unit sends out periodic requests over the network, and Slaves receive and reply.
 
@@ -467,10 +469,12 @@ For more information see the examples on our blog, e.g. [Modbus RTU between 2 IN
 
 
 # RTC
+
 Industruinos with the D21G topboard have a built-in RTC (MCP79402 with I2C 0x57 and 0x6F) that can be used with this [library](https://github.com/Industruino/MCP7940-RTC-Library). A simple example that displays the date and time on the LCD can be found [here](https://github.com/Industruino/democode/blob/master/rtc_D21G/rtc_D21G.ino). The RTC also contains a unique 8-byte number (EUI-64) that can be used as a MAC address, see above in the Ethernet section.
 
 
 # EEPROM
+
 Industruinos with the D21G topboard (from version 1.7) have 1kB EEPROM (non-volatile memory, Microchip AT24CS08) available over I2C (0x50, 0x51, 0x52, 0x53) that can be used with this [library](https://github.com/RobTillaart/Arduino/tree/master/libraries/I2C_EEPROM). It can also be used directly with the Wire library to read/write bytes.
 
 
@@ -484,6 +488,7 @@ The 32u4 and 1286 topboards can use the standard Arduino EEPROM library.
 
 
 # Watchdog
+
 The Adafruit SleepyDog library works on the D21G as in this [example](https://github.com/Industruino/democode/blob/master/watchdog_D21G/watchdog_D21G.ino). This library also has a SLEEP function, which gives good results on the Industruino as documented [here](https://industruino.com/blog/our-news-1/post/d21g-features-30).
 
 
@@ -491,6 +496,7 @@ For AVR watchdogs on the 1286 and 32u4, see [here](https://industruino.com/page/
 
 
 # Modbus
+
 Modbus is a serial communications protocol popular in industry. It uses a Master/Slave(s) configuration, and comes in 2 types:
 * Modbus RTU: using an RS485 port, available on the Industruino IND.I/O
   * suggested library: [SimpleModbus](https://code.google.com/archive/p/simple-modbus/)
