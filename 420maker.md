@@ -19,7 +19,9 @@ D21G is compatible with IDE from 1.6.12 with automatic install via board manager
 * Enter the Board Manager via *Tools > Board* and search for 'industruino'
 * Install the Industruino SAML package
 * *Industruino 4-20mAker* will show up in the Boards list in *Tools > Board* in section *Industruino SAML*
-* The 4-20mAker needs to be connected to a power source in order to switch on; the USB connection does not power it up
+
+Important notes:
+1. The 4-20mAker needs to be connected to a power source in order to switch on and be detected by the computer; the USB connection does not power it up
 
 
 # Wiring example
