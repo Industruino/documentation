@@ -10,10 +10,10 @@
     * [U8G and U8G2](#u8g-and-u8g2) - LCD display
     * [Indio](#indio) - industrial I/O channels
       * [digital I/O](#digital-io) 
+      * [interrupts](#interrupts)      
       * [analog input](#analog-input)
       * [analog output](#analog-output)
-      * [interrupts](#interrupts)
-      * [calibration](#calibration)
+      * [analog calibration](#analog-calibration)
 5. [RS485](#rs485)
 6. [RTC](#rtc) - D21G only
 7. [EEPROM](#eeprom)
@@ -136,71 +136,8 @@ Notes:
 * INPUT maximum trigger frequency is 10kHz (see below for interrupts)
 * OUTPUT maximum switching frequency is 400Hz
 
-### ANALOG INPUT
-
-##### Important note:    
-##### The analog I/O section is galvanically isolated from the digital I/O section and the microcontroller section, to allow a separate power supply in the analog section for optimal accuracy. In case your analog sensors/actuators are on the same power supply as the digital section (Vin 12/24V) you have to connect the analog GND to the digital GND.
-
-Configuration of resolution (to be done BEFORE configuration of the input mode):
-```
-Indio.setADCResolution(16);       // Set the ADC resolution
-                                  // Choices are 12bit@240SPS, 14bit@60SPS, 16bit@15SPS and 18bit@3.75SPS.
-```
-
-Configuration of input mode:
-```
-Indio.analogReadMode(1, V10);     // Set Analog-In CH1 to 10V mode (0-10V).
-Indio.analogReadMode(1, V10_p);   // Set Analog-In CH1 to % 10V mode (0-10V -> 0-100%).
-Indio.analogReadMode(1, V5);      // Set Analog-In CH1 to 5V mode (2x gain enabled on ADC).
-Indio.analogReadMode(1, V5_p);    // Set Analog-In CH1 to 5V mode (0-5V -> 0-100%).
-Indio.analogReadMode(1, V10_raw); // Set Analog-In CH1 to 10V mode and read raw ADC value (0-10V -> 0-4096).
-
-Indio.analogReadMode(1, mA);      // Set Analog-In CH1 to mA mode (0-20mA).
-Indio.analogReadMode(1, mA_p);    // Set Analog-In CH1 to % mA mode (4-20mA -> 0-100%)
-Indio.analogReadMode(1, mA_raw);  // Set Analog-In CH1 to mA mode and read raw ADC value (0-20mA -> 0-4096).
-```  
-
-Note: if you want to change the resolution in your program, you have to repeat the above input mode configuration after changing the resolution.
-
-
-Read:
-```
-Indio.analogRead(1);              //Read Analog-In CH1 (output depending on selected mode as above)
-```
-Please note that the output of the Indio.analogRead() in RAW mode is not of the type INTEGER, but FLOAT. The output range is fixed from 0 to 4096 for all resolutions, but only in 12-bit mode this returns integers; for higher resolution the measurements are floating point numbers.
-
-### ANALOG OUTPUT
-
-##### Important note:   
-#####The analog I/O section is galvanically isolated from the digital I/O section and the microcontroller section, to allow a separate power supply in the analog section for optimal accuracy. In case your analog sensors/actuators are on the same power supply as the digital section (Vin 12/24V) you have to connect the analog GND to the digital GND.
-
-The DAC resolution is 12 bits.
-
-Configuration of output mode:
-```
-Indio.analogWriteMode(1, V10);      // Set Analog-Out CH1 to 10V mode (0-10V).
-Indio.analogWriteMode(1, V10_p);    // Set Analog-Out CH1 to % 10V mode ( 0-100% -> 0-10V).
-Indio.analogWriteMode(1, V10_raw);  // Set Analog-Out CH1 to 10V mode and take raw DAC value (0-4096 -> 0-10V).
-
-Indio.analogWriteMode(1, mA);       // Set Analog-Out CH1 to mA mode (0-20mA).
-Indio.analogWriteMode(1, mA_p);     // Set Analog-Out CH1 to % mA mode (0-100% -> 4-20mA).
-Indio.analogWriteMode(1, mA_raw);   // Set Analog-Out CH1 to mA mode and take raw DAC value (0-4096 -> 0-20mA).   
-```
-Write (examples corresponding to above configuration):
-```
-Indio.analogWrite(1, 2.67, true);   //Set CH1 to 2.67V ("true" will write value to EEPROM of DAC, restoring it after power cycling).
-Indio.analogWrite(1, 33.5, true);   //Set CH1 to 33.5% (approx 3.685V)
-Indio.analogWrite(1, 1000, true);   //Set CH1 DAC to integer value 1000 (approx 2.685V).
-
-Indio.analogWrite(1, 10.50, false); //Set CH1 to 10.5mA ("false" will not write value to EEPROM of DAC).
-Indio.analogWrite(1, 75, true);     //Set CH1 to 75% (approx 16mA).
-Indio.analogWrite(1, 2048, true);   //Set CH1 DAC to integer value 2048 (approx 10.5mA).
-```
 
 ### INTERRUPTS
-
-
-#### INTERRUPTS on the D21G topboard
 
 The interrupt pin of the expander on the 12/24V digital side is connected to D8 (=INT8) pin of the D21G topboard. This pin will trigger when a change on any of the 8 input or output channels occurs. By default all input channels have this interrupt enabled. However, this can be configured per channel:
 ```
@@ -390,34 +327,70 @@ void loop() {
 }
 ```
 
-### RS485
 
-RS485 is a popular industrial network standard and the INDIO features a half duplex RS485 transceiver. It is often used with the Modbus protocol, so-called Modbus RTU (as opposed to Modbus TCP which uses Ethernet). The Master unit sends out periodic requests over the network, and Slaves receive and reply.
+### ANALOG INPUT
 
-Hardware specifics for RS485 on the INDIO:
-* Serial connection = Serial (on the current D21G, Serial1 on old 32u4 and 1286 topboards)
-* TxEnablePin = D9
+##### Important note:    
+##### The analog I/O section is galvanically isolated from the digital I/O section and the microcontroller section, to allow a separate power supply in the analog section for optimal accuracy. In case your analog sensors/actuators are on the same power supply as the digital section (Vin 12/24V) you have to connect the analog GND to the digital GND.
 
-Note: the current IND.I/O baseboards have a hardware switch to connect/disconnect the RS485 port and the Serial port (D0/D1). To use the RS485, this switch should be in the bottom position (towards the RS485 terminals).
-
-Note: the INDIO board has 3 jumpers for RS485 termination resistors, for details see [here](https://industruino.com/blog/our-news-1/post/modbus-rtu-master-and-slave-14).
-
-We can use the [SimpleModbusMaster and SimpleModbusSlave libraries](https://drive.google.com/folderview?id=0B0B286tJkafVYnBhNGo4N3poQ2c&usp=drive_web&tid=0B0B286tJkafVSENVcU1RQVBfSzg#list) (versions V2rev2 and V10 respectively) to establish communication over RS485 between 2 or more INDIOs, with one acting as the Master and the other one(s) as the Slave(s). This is one way of expanding the Industruino's number of I/O pins.
-
-Basic configuration of the above Modbus RTU libraries:
+Configuration of resolution (to be done BEFORE configuration of the input mode):
 ```
-#define baud       9600   // use 9600 on D21G, higher rates may not work
-#define timeout    1000
-#define polling    20    // the scan rate
-#define retry_count 10
-// used to toggle the receive/transmit pin on the driver
-#define TxEnablePin 9                                                           // INDUSTRUINO RS485
-
-modbus_configure(&Serial, baud, SERIAL_8N2, timeout, polling, retry_count, TxEnablePin, packets, TOTAL_NO_OF_PACKETS, regs);
+Indio.setADCResolution(16);       // Set the ADC resolution
+                                  // Choices are 12bit@240SPS, 14bit@60SPS, 16bit@15SPS and 18bit@3.75SPS.
 ```
-For more information see the examples on our blog, e.g. [Modbus RTU between 2 INDIOs](https://industruino.com/blog/our-news-1/post/modbus-rtu-master-and-slave-14).
 
-### CALIBRATION
+Configuration of input mode:
+```
+Indio.analogReadMode(1, V10);     // Set Analog-In CH1 to 10V mode (0-10V).
+Indio.analogReadMode(1, V10_p);   // Set Analog-In CH1 to % 10V mode (0-10V -> 0-100%).
+Indio.analogReadMode(1, V5);      // Set Analog-In CH1 to 5V mode (2x gain enabled on ADC).
+Indio.analogReadMode(1, V5_p);    // Set Analog-In CH1 to 5V mode (0-5V -> 0-100%).
+Indio.analogReadMode(1, V10_raw); // Set Analog-In CH1 to 10V mode and read raw ADC value (0-10V -> 0-4096).
+
+Indio.analogReadMode(1, mA);      // Set Analog-In CH1 to mA mode (0-20mA).
+Indio.analogReadMode(1, mA_p);    // Set Analog-In CH1 to % mA mode (4-20mA -> 0-100%)
+Indio.analogReadMode(1, mA_raw);  // Set Analog-In CH1 to mA mode and read raw ADC value (0-20mA -> 0-4096).
+```  
+
+Note: if you want to change the resolution in your program, you have to repeat the above input mode configuration after changing the resolution.
+
+
+Read:
+```
+Indio.analogRead(1);              //Read Analog-In CH1 (output depending on selected mode as above)
+```
+Please note that the output of the Indio.analogRead() in RAW mode is not of the type INTEGER, but FLOAT. The output range is fixed from 0 to 4096 for all resolutions, but only in 12-bit mode this returns integers; for higher resolution the measurements are floating point numbers.
+
+### ANALOG OUTPUT
+
+##### Important note:   
+#####The analog I/O section is galvanically isolated from the digital I/O section and the microcontroller section, to allow a separate power supply in the analog section for optimal accuracy. In case your analog sensors/actuators are on the same power supply as the digital section (Vin 12/24V) you have to connect the analog GND to the digital GND.
+
+The DAC resolution is 12 bits.
+
+Configuration of output mode:
+```
+Indio.analogWriteMode(1, V10);      // Set Analog-Out CH1 to 10V mode (0-10V).
+Indio.analogWriteMode(1, V10_p);    // Set Analog-Out CH1 to % 10V mode ( 0-100% -> 0-10V).
+Indio.analogWriteMode(1, V10_raw);  // Set Analog-Out CH1 to 10V mode and take raw DAC value (0-4096 -> 0-10V).
+
+Indio.analogWriteMode(1, mA);       // Set Analog-Out CH1 to mA mode (0-20mA).
+Indio.analogWriteMode(1, mA_p);     // Set Analog-Out CH1 to % mA mode (0-100% -> 4-20mA).
+Indio.analogWriteMode(1, mA_raw);   // Set Analog-Out CH1 to mA mode and take raw DAC value (0-4096 -> 0-20mA).   
+```
+Write (examples corresponding to above configuration):
+```
+Indio.analogWrite(1, 2.67, true);   //Set CH1 to 2.67V ("true" will write value to EEPROM of DAC, restoring it after power cycling).
+Indio.analogWrite(1, 33.5, true);   //Set CH1 to 33.5% (approx 3.685V)
+Indio.analogWrite(1, 1000, true);   //Set CH1 DAC to integer value 1000 (approx 2.685V).
+
+Indio.analogWrite(1, 10.50, false); //Set CH1 to 10.5mA ("false" will not write value to EEPROM of DAC).
+Indio.analogWrite(1, 75, true);     //Set CH1 to 75% (approx 16mA).
+Indio.analogWrite(1, 2048, true);   //Set CH1 DAC to integer value 2048 (approx 10.5mA).
+```
+
+
+### Analog calibration
 
 Please find the calibration data array inside the Indio.cpp library file (as below), together with this explanation on how to perform the calibration. The library is preloaded with calibration data but characteristics are board specific thus reading with standard calibration data might be off. You are advised to update the calibration arrays in your own Indio.cpp file. We provide a sketch to assist with this [here](https://github.com/Industruino/Indio/tree/master/examples/Indio_AnalogCalibration).
 
@@ -463,6 +436,34 @@ const int DAC_current_low_uA[3] = {0,5162,5162}; //corresponding uA for low refe
 const int DAC_current_high_raw[3] = {0,3600,3600}; //raw DAC value for high reference calibration point. Ignore first 0, subsequent is CH1-CH2 from left to right.
 const int DAC_current_high_uA[3] = {0,19530,19530}; //corresponding uA for high reference calibration point. Ignore first 0, subsequent is CH1-CH2 from left to right.
 ```
+
+
+### RS485
+
+RS485 is a popular industrial network standard and the INDIO features a half duplex RS485 transceiver. It is often used with the Modbus protocol, so-called Modbus RTU (as opposed to Modbus TCP which uses Ethernet). The Master unit sends out periodic requests over the network, and Slaves receive and reply.
+
+Hardware specifics for RS485 on the INDIO:
+* Serial connection = Serial (on the current D21G, Serial1 on old 32u4 and 1286 topboards)
+* TxEnablePin = D9
+
+Note: the current IND.I/O baseboards have a hardware switch to connect/disconnect the RS485 port and the Serial port (D0/D1). To use the RS485, this switch should be in the bottom position (towards the RS485 terminals).
+
+Note: the INDIO board has 3 jumpers for RS485 termination resistors, for details see [here](https://industruino.com/blog/our-news-1/post/modbus-rtu-master-and-slave-14).
+
+We can use the [SimpleModbusMaster and SimpleModbusSlave libraries](https://drive.google.com/folderview?id=0B0B286tJkafVYnBhNGo4N3poQ2c&usp=drive_web&tid=0B0B286tJkafVSENVcU1RQVBfSzg#list) (versions V2rev2 and V10 respectively) to establish communication over RS485 between 2 or more INDIOs, with one acting as the Master and the other one(s) as the Slave(s). This is one way of expanding the Industruino's number of I/O pins.
+
+Basic configuration of the above Modbus RTU libraries:
+```
+#define baud       9600   // use 9600 on D21G, higher rates may not work
+#define timeout    1000
+#define polling    20    // the scan rate
+#define retry_count 10
+// used to toggle the receive/transmit pin on the driver
+#define TxEnablePin 9                                                           // INDUSTRUINO RS485
+
+modbus_configure(&Serial, baud, SERIAL_8N2, timeout, polling, retry_count, TxEnablePin, packets, TOTAL_NO_OF_PACKETS, regs);
+```
+For more information see the examples on our blog, e.g. [Modbus RTU between 2 INDIOs](https://industruino.com/blog/our-news-1/post/modbus-rtu-master-and-slave-14).
 
 
 # RTC
