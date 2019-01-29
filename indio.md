@@ -1,14 +1,25 @@
 # Industruino IND.I/O product documentation
 
-Current version:
-* HW REV: 5.2
-* FW REV: 3.0
+*Current version: HW REV: 5.2, FW REV: 3.0*
 
-* [Setting up the Arduino IDE](setting-up-the-arduino-ide)
-* [D21G specific features](d21g-board-specific-features)
-* Libraries for use with IND.I/O:
+1 [Setting up the Arduino IDE](setting-up-the-arduino-ide)
+2 [D21G specific features](d21g-board-specific-features)
+3 [IDC expansion port pinout](idc-expansion-port-pinout)
+4 Libraries for use with IND.I/O:
   * [UC1701](#uc1701) - LCD display
   * [U8G and U8G2](#u8g-and-u8g2) - LCD display
+  * [Indio](#indio) - industrial I/O channels
+    * [digital I/O](#digital-io) 
+    * [analog input](#analog-input)
+    * [analog output](#analog-output)
+    * [interrupts](#interrupts)
+    * [calibration](#calibration)
+5 [RS485](#rs485)
+6 [RTC](#rtc) - D21G only
+7 [EEPROM](#eeprom)
+8 [WDT](#watchdog)
+9 [Modbus](#modbus) - RTU and TCP
+
 
 # Setting up the Arduino IDE
 
@@ -30,9 +41,7 @@ D21G is compatible with IDE from 1.6.12 with automatic install via board manager
 * LCD backlight on D26 
 * Hardware Timers of the Industruino D21G are similar to the Arduino Zero, see this [blog post](https://industruino.com/blog/our-news-1/post/d21g-timer-library-33).
 * [D21G PROTO kit](#proto): notes on digital and analog input/output 
-
-
-The pre-loaded demo code is available at https://github.com/Industruino/democode
+* The pre-loaded demo code is available at https://github.com/Industruino/democode
 
 
 *Legacy boards 32u4 and 1286 specific features:*
@@ -42,27 +51,28 @@ The pre-loaded demo code is available at https://github.com/Industruino/democode
 * LCD backlight is on D13 for 32u4 and D26 for 1286
 
 
-# Industruino libraries
+# IDC expansion port pinout
 
-Arduino libraries to use with Industruino products:
-* [UC1701](#uc1701) - LCD display
-* [U8G and U8G2](#u8g-and-u8g2) - LCD display
-* [Ethernet](#ethernet) - Ethernet module
-  * [FRAM](#fram)
-  * [SD card](#sd-card)
-  * [IDC pinout](#idc-pinout)
-* [Indio](#indio) - IND.I/O kit only
-  * [digital I/O](#digital-io) 
-  * [analog input](#analog-input)
-  * [analog output](#analog-output)
-  * [RS485](#rs485)
-  * [interrupts](#interrupts)
-  * [calibration](#calibration)
-* [RTC](#rtc) - D21G only
-* [EEPROM](#eeprom)
-* [WDT](#watchdog)
-* [GSM/GPRS](#gsmgprs) - GSM/GPRS module
-* [Modbus](#modbus) - RTU and TCP
+Unlike the IND.I/O's digital and analog I/O channels, the IDC expansion port provides direct access to the MCU's GPIO pins. This port is intended for use with Industruino Ethernet module or Industruino GSM/GPRS module, but in other cases, the IDC pins can also be used to connect other devices to the IND.I/O. These pins are accessible with standard `pinMode`, `digitalRead` and `digitalWrite` commands (different from the IND.I/O digital I/O channels which are controlled by the Indio library). Please note the D21G works at 3.3V: if you need 5V output, use a 10K pull-up resistor.
+
+| IDC pin number	| Module function	| Arduino pin	| Default connected	| Required for standard functions |
+| --- | --- | --- | --- | --- |
+| 1	|MISO	| D14	| yes	| yes |
+| 2	| +5V	| +5V	| yes	| yes |
+| 3	| SCLK	| D15/SCLK	| yes	| yes |
+| 4	| MOSI	| D16/MOSI	| yes	| yes |
+| 5	| Ethernet CS	| D10/RX1	(Serial1) | yes	| yes |
+| 6	| GND	| GND	| yes	| yes |
+| 7	| SD CS	| D4	| yes	| yes |
+| 8	| Ethernet ext reset	| D5/TX1	(Serial1) | yes	| no |
+| 9	| Ethernet IRQ	| D7	| yes	| no |
+| 10	| FRAM CS	| D6	| yes	| yes |
+| 11	| /	| D0/RX	(Serial) | PROTO: no <br> IND.I/O: depends on switch position | PROTO: no <br> IND.I/O: RS485/IDC|
+| 12	| /	| D1/TX	(Serial) | PROTO: no	<br> IND.I/O: depends on switch position | PROTO: no <br> IND.I/O: RS485/IDC|
+| 13	| /	| D2/SDA	| PROTO: no	<br> IND.I/O: yes | used for I2C RTC|
+| 14	| / | D3/SCL |	PROTO: no	<br> IND.I/O: yes | used for I2C RTC|
+
+
 
 # UC1701
 You can download the library from within the Arduino libraries manager or from [this repository](https://github.com/Industruino/UC1701).
@@ -91,72 +101,6 @@ Use this constructor for hardware SPI:
 ```
 U8G2_UC1701_MINI12864_F_4W_HW_SPI u8g2(U8G2_R2, /* cs=*/ 19, /* dc=*/ 22);
 ```
-
-# Ethernet
-If you have the D21G Topboard please use Industruino version of the [Ethernet2 library](https://github.com/Industruino/Ethernet2). This is a fork of the original Ethernet2, with one important change: the SPI speed is set to 4MHz in this [file, line 25](https://github.com/Industruino/Ethernet2/blob/master/src/utility/w5500.cpp).
-
-
-For a unique MAC-address, you can use the EUI-64 number stored in the D21G's RTC (MCP79402), for an example see this [sketch](https://github.com/Industruino/democode/blob/master/MACfromRTC/MACfromRTC.ino).
-
-
-If you are using the Industruino Ethernet module with 32u4 or 1286 Topboard use our [EthernetIndustruino library](https://github.com/Industruino/EthernetIndustruino). 
-Both libraries are based on the standard Arduino Ethernet library and support all same commands. The Ethernet module is connected over SPI, so we also need the SPI library.
-
-For D21G
-```
-#include <SPI.h>
-#include <Ethernet2.h>
-```
-For 32u4 / 1286
-```
-#include <SPI.h>
-#include <EthernetIndustruino.h>
-```
-
-### FRAM
-
-The Ethernet module also includes FRAM; for D21G see this [demo sketch](https://github.com/Industruino/democode/tree/master/fram_D21G). 
-For 32u4/1286 the example is in the EthernetIndustruino library. If you want to use the FRAM together with the Ethernet, there is no need to include the SPI settings as in the FRAM example, because this is taken care of in the Ethernet library. So you can just include the 2 libraries with the above 2 lines; DO NOT include the SPI settings as in the FRAM example:
-```
-//Setting up the SPI bus -- NO NEED when using the EthernetIndustruino library
-SPI.begin();
-SPI.setDataMode(SPI_MODE0); 
-SPI.setBitOrder(MSBFIRST);
-SPI.setClockDivider(SPI_CLOCK_DIV2);
-```
-
-### SD card
-
-The standard SD library included in the Arduino IDE works with the Ethernet module with minor modifications (CS is D4 as standard): for the D21G replace *Serial* by *SerialUSB*. And you may have to add these lines to ensure the CS of Ethernet, FRAM, and SD are HIGH:
-```
-pinMode(10, OUTPUT); // Ethernet CS
-pinMode(6, OUTPUT);  // FRAM CS
-pinMode(4, OUTPUT);  // SD card CS
-digitalWrite(10, HIGH);
-digitalWrite(6, HIGH);
-digitalWrite(4, HIGH);
-```
-
-### IDC pinout
-
-When using the Ethernet module with the Industruino PROTO, it is important to be aware of the I/O pins it is using, and which should not be used for other I/O functions; see below table. The IDC pins can also be used to connect other 5V devices to the PROTO and IND.I/O; they are accessible with standard `pinMode`, `digitalRead` and `digitalWrite` commands (different from the IND.I/O digital I/O channels, see below). Please note the D21G works at 3.3V: if you need 5V output, use a 10K pull-up resistor. For more details, look [here](https://github.com/Industruino/libraries#proto).
-
-| IDC pin number	| Module function	| Arduino pin	| Default connected	| Required for standard functions |
-| --- | --- | --- | --- | --- |
-| 1	|MISO	| D14	| yes	| yes |
-| 2	| +5V	| +5V	| yes	| yes |
-| 3	| SCLK	| D15/SCLK	| yes	| yes |
-| 4	| MOSI	| D16/MOSI	| yes	| yes |
-| 5	| Ethernet CS	| D10/RX1	(Serial1) | yes	| yes |
-| 6	| GND	| GND	| yes	| yes |
-| 7	| SD CS	| D4	| yes	| yes |
-| 8	| Ethernet ext reset	| D5/TX1	(Serial1) | yes	| no |
-| 9	| Ethernet IRQ	| D7	| yes	| no |
-| 10	| FRAM CS	| D6	| yes	| yes |
-| 11	| /	| D0/RX	(Serial) | PROTO: no <br> IND.I/O: depends on switch position | PROTO: no <br> IND.I/O: RS485/IDC|
-| 12	| /	| D1/TX	(Serial) | PROTO: no	<br> IND.I/O: depends on switch position | PROTO: no <br> IND.I/O: RS485/IDC|
-| 13	| /	| D2/SDA	| PROTO: no	<br> IND.I/O: yes | used for I2C RTC|
-| 14	| / | D3/SCL |	PROTO: no	<br> IND.I/O: yes | used for I2C RTC|
 
 
 # Indio
@@ -545,13 +489,6 @@ The Adafruit SleepyDog library works on the D21G as in this [example](https://gi
 For AVR watchdogs on the 1286 and 32u4, see [here](https://industruino.com/page/wdt).
 
 
-# GSM/GPRS
-The Industruino GSM/GPRS module is based on the SIM800 and can be used with a variety of libraries. We recommend the [TinyGSM](https://github.com/vshymanskyy/TinyGSM) library, and you can find several code examples modified for Industruino [here](https://github.com/Industruino/democode). See the module's user manual for configuration options of the serial selector switches. If you are using an IND.I/O unit, please be aware that by default, the 'Serial' port (D0/D1) is connected to the IND.I/O's RS485 port. The current IND.I/O baseboards have a hardware switch to connect/disconnect the RS485 port to this Serial port (D0/D1). To use the 'Serial' port for RS232 or GSM, this switch should be in the upward position (away from the RS485 terminals).
-
-
-If you want to use the Adafruit FONA library, be aware that the Industruino GSM/GPRS module uses D6 as power on/off pin (it needs 1s HIGH), which is not the same as the Reset pin of the FONA library (pulled LOW for 0.1s in the library).
-
-
 # Modbus
 Modbus is a serial communications protocol popular in industry. It uses a Master/Slave(s) configuration, and comes in 2 types:
 * Modbus RTU: using an RS485 port, available on the Industruino IND.I/O
@@ -564,51 +501,4 @@ Modbus is a serial communications protocol popular in industry. It uses a Master
 
 Modbus uses 16-bit registers, we so often need to convert these from/to 32-bit `float` and `long` types; you can use the functions described [here](https://industruino.com/blog/our-news-1/post/modbus-tips-for-industruino-26).
 
-
-# PROTO
-*Notes on digital and analog input/output for the Industruino D21G PROTO kit*
-
-The Industruino PROTO D21G is designed to work with 5V GPIO, while the MCU is running on 3.3V. The level shifters are bidirectional and support analog signals. Note that the output is at 3.3V by default. 
-
-The pins are connected directly to the MCU so we can use the standard Arduino functions.
-
-
-## Digital output
-Default HIGH signal is 3.3V. To get a digital output on the PROTO D21G at 5V level you should add a pull-up resistor to 5V (10K resistor should be sufficient).
-
-
-## Digital input
-The `INPUT_PULLUP` mode defaults to 3.3V, we can use a pull-up resistor of 10K if we need 5V.
-
-External interrupts work on all pins except 11 and 17, with the standard `attachInterrupt(pin, ISR, mode);` instruction. More details at [Arduino reference](https://www.arduino.cc/en/Reference/AttachInterrupt).
-
-
-## Analog output
-The PROTO D21G has one 10-bit DAC available on pin D18; to use it we need to refer to it as `DAC0`. The range is 0 to 3.3V. Default resolution is 8-bit. These lines will set the output to 1.65V (50% of 3.3V) at maximum resolution of 12-bit.
-```
-analogWriteResolution(12);
-analogWrite(DAC0, 2048);
-```
-
-PWM output is available on a range of pins (default frequency is 730Hz), see the PROTO D21G pinout map.
-More details at [Arduino reference](https://www.arduino.cc/en/Reference/AnalogWriteResolution).
-
-
-## Analog input
-Please note that the pin numbers for analog input follow the digital pin numbers, i.e. A4 is on D4, A5 on D5 etc, as mentioned in the PROTO D21G pinout map. Your PROTO casing may have different labels, based on the legacy boards 32u4 and 1286. Please make sure to check the D21G pinout map for available analog input pins.
-
-Analog read resolution default is 10-bit, returning values 0-1023.
-We can change this to 12-bit with `analogReadResolution(12);` returning values 0-4095.
-
-More details at [Arduino reference](https://www.arduino.cc/en/Reference/AnalogReadResolution).
-
-The analog reference voltage is 3.3V by default, and can be changed to these options:
-```
-  analogReference(AR_DEFAULT);     // 3V3
-  analogReference(AR_INTERNAL);    // 2V23
-  analogReference(AR_EXTERNAL);    // put on AREF, max 3V3
-  analogReference(AR_INTERNAL1V0);  
-  analogReference(AR_INTERNAL1V65);
-  analogReference(AR_INTERNAL2V23);
-```
 
