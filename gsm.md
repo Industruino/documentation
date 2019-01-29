@@ -18,6 +18,7 @@ For datasheets, user manuals, pinout maps, see [industruino.com](https://industr
 See the module's user manual for configuration options of the serial selector switches. 
 * One serial port is needed for communication with the SIM800 module 
 * Another serial port can be used for the RS232 interface
+
 The 2 hardware serial ports of the D21G can be used for these purposes, or a software serial can be used.
 This module can also be used without IND.I/O or PROTO controller 'external mode', with external power, and control over the RS232 port.
 
