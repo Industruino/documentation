@@ -144,7 +144,7 @@ Notes:
 
 ### INTERRUPTS
 
-The interrupt pin of the expander on the 12/24V digital side is connected to D8 (=INT8) pin of the D21G topboard. This pin will trigger when a change on any of the 8 input or output channels occurs. By default all input channels have this interrupt enabled. However, this can be configured per channel:
+Pin changes on any of the 8 digital input channels can trigger a general interrupt to the MCU. The interrupt pin of the expander on the 12/24V digital side is connected to D8 (=INT8) pin of the D21G. This pin will trigger when a change on any of the 8 input or output channels occurs. By default all input channels have this interrupt enabled. However, this can be configured per channel:
 ```
 Indio.digitalMode(1, INPUT);         // default behaviour: interrupt enabled
 Indio.digitalMode(2, INPUT_MASKED);  // pin change will not trigger the general interrupt
