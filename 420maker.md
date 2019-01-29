@@ -102,12 +102,19 @@ To clear the WDT:
 
 # Application notes
 
-## Current range
+
+### Power supply
+
+While powering the 4-20mAker with 12V is possible, it leaves almost no power available to connect additional sensors, so we recommend 24V. Lower voltage may be used, resulting in a reduced output range e.g. 10-20mA.
+
+
+### Current range
 
 The 4-20mAker can output a range from 3.8 to 21mA.
 However, if devices connected to it draw more than a few mA (e.g. an RC522 RFID reader) then the 4-20mAker will not be able to reach the lower end of the current range. A simple solution is to reduce the output range to e.g. 10-20mA.
 
-## NAMUR NE43 compliance
+
+### NAMUR NE43 compliance
 
 The 4-20mAker can comply with the NAMUR NE43 standard to signal sensor failure:
 * output < 3.6mA means sensor failure
