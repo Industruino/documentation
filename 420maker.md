@@ -5,7 +5,7 @@
 1. Setting up the Arduino [IDE](#setting-up-the-arduino-ide)
 2. [Wiring](#wiring-example) example
 3. [SAML](#saml-board-specific-features) specific features
-4. [GPIO](#gpio) pinout
+4. [GPIO](#gpio) notes
 5. [WDT](#wdt)
 6. [Application notes](#application-notes)
 
@@ -16,11 +16,12 @@ For datasheets, user manuals, pinout maps, see [industruino.com](https://industr
 
 # Setting up the Arduino IDE
 
-The 4-20mAker is compatible with the Arduino IDE with automatic install via board manager: 
+The 4-20mAker is compatible with the Arduino IDE (minimum version 1.8.2) with automatic install via board manager: 
 * In *File > Preferences > Additional Boards Manager URLs:* add https://static.industruino.com/downloads/code/IndustruinoCores/IndustruinoSAML/pkgdef/package_industruino_saml_index.json 
 * Enter the Board Manager via *Tools > Board* and search for 'industruino'
 * Install the Industruino SAML package
 * *Industruino 4-20mAker* will show up in the Boards list in *Tools > Board* in section *Industruino SAML*
+* Windows driver (if necessary) at https://static.industruino.com/downloads/drivers/drivers-industruino-windows-1.0.0.zip
 
 Important notes:
 1. The 4-20mAker needs to be connected to a power source in order to switch on and be detected by the computer; the USB connection does not power it up.
@@ -55,7 +56,7 @@ If using a separate power supply for each device:
   ```analogWriteResolution(12);```
   * write a 12-bit number X to the current loop: (0-4095 corresponds to 3.8-20.7mA)   
   ```analogWrite(PIN_DAC0, X);```
-* The functions of the 6 GPIO pins can be chosen as options in the IDE menu *Tools > Board*
+* The SERCOM functions of the 6 GPIO pins can be chosen as options in the IDE menu *Tools > Board*
   * SPI + I2C
   * SPI + UART
   * I2C + UART
@@ -66,7 +67,7 @@ If using a separate power supply for each device:
 
 # GPIO
 
-The green screw connector gives access to 6 GPIO pins. These pins are all capable of digital input/output, analog input, and pwm output.
+The green screw connector gives access to 6 GPIO pins. These pins are all capable of digital input/output, analog input, and pwm output. 3V3 signal level, max 3.6V
 
 Additional functions depend to the option chosen in the IDE menu *Tools > Board*:
 
