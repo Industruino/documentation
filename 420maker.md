@@ -42,7 +42,7 @@ If using a separate power supply for each device:
 
 # SAML board specific features
 
-* The 4-20mAker has an Atmel SAML21E MCU.
+* The 4-20mAker has an Atmel ATSAML21E18B MCU.
 * `RESET` button is located behind the green screw terminal; double tap resets the MCU.
 * Serial ports on SAML:
   * SerialUSB for USB (Serial Monitor)
@@ -66,7 +66,9 @@ If using a separate power supply for each device:
 
 # GPIO
 
-The green screw connector gives access to 6 GPIO pins, with additional functions according to the option chosen in the IDE menu *Tools > Board*:
+The green screw connector gives access to 6 GPIO pins. These pins are all capable of digital input/output, analog input, and pwm output.
+
+Additional functions depend to the option chosen in the IDE menu *Tools > Board*:
 
 | header pin number	| MCU pin	| additional function |
 | --- | --- | --- | 
@@ -103,13 +105,13 @@ To clear the WDT:
 # Application notes
 
 
-### Power supply
+### Available power
 
-While powering the 4-20mAker with 12V is possible, it leaves almost no power available to connect additional sensors, so we recommend 24V. Lower voltage may be used, resulting in a reduced output range e.g. 10-20mA.
+* To achieve the minimum 4mA on the loop,  the 3.3V sensor should not consume more than 15mA averaged (The transmitter has significant capacitance on the sensor supply rail, so short higher current peaks can absorbed, depending on the duration and interval). 
+* Higher average current is supported and will not damage the transmitter, it will only raise the minumum controllable loop current above 4mA, thus reducing your range and resolution (e.g. range of 10-20mA).
+* The same situation occurs when the transmitter is powered by less than 24V: the output range may be reduced, depending on the power consumption of your additional sensors.
 
+### USB isolator
 
-### Current range
-
-The 4-20mAker can output a range from 3.8 to 21mA.
-However, if devices connected to it draw more than a few mA (e.g. an RC522 RFID reader) then the 4-20mAker will not be able to reach the lower end of the current range. A simple solution is to reduce the output range to e.g. 10-20mA.
+Due to the non-isolated nature of the transmitter we recommend that you use a USB isolator for programming and calibration via the USB port.
 
