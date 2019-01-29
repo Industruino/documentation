@@ -48,7 +48,7 @@ If using a separate power supply for each device:
   ```DAC->CTRLB.bit.REFSEL = 0x00; //Set DAC to external VREF (2.5V)```
   * the DAC has 12-bit resolution:   
   ```analogWriteResolution(12);```
-  * write a 12-bit number X to the current loop: (0-4095 corresponds to 3.75-21mA)
+  * write a 12-bit number X to the current loop: (0-4095 corresponds to 3.75-21mA)   
   ```analogWrite(PIN_DAC0, X);```
 * The functions of the 6 GPIO pins can be chosen as options in the IDE menu *Tools > Board*
   * SPI + I2C
@@ -63,16 +63,17 @@ If using a separate power supply for each device:
 
 The green screw connector gives access to 6 GPIO pins:
 
-| header pin number	| MCU pin	| Config1	| Config2 |
-| --- | --- | --- | --- | --- |
+| header pin number	| MCU pin	| Config1 |
+| --- | --- | --- | 
 | 1	| D1	|  |
 | 2	|	D2 |  |
 | 3	| D3	|  |
 | 4	| D4	|  |
 | 5	| D5	|  |
 | 6	| D6	|  |
-| 7 | GND | GND | GND
-| 8 | 3V3 | 3V3 | 3V3
+| 7 | GND | GND | 
+| 8 | 3V3 | 3V3 | 
+
 
 # WDT
 
