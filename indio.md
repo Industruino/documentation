@@ -21,6 +21,9 @@
 9. [Modbus](#modbus) - RTU and TCP
 
 
+For datasheets, user manuals, pinout maps, see [industruino.com](https://industruino.com/page/techcentre)
+
+
 # Setting up the Arduino IDE
 
 D21G is compatible with IDE from 1.6.12 with automatic install via board manager: 
