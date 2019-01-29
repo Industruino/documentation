@@ -61,18 +61,18 @@ If using a separate power supply for each device:
 
 # GPIO
 
-The green screw connector gives access to 6 GPIO pins:
+The green screw connector gives access to 6 GPIO pins, with additional functions according to the option chosen in the IDE menu *Tools > Board*:
 
-| header pin number	| MCU pin	| Config1 |
+| header pin number	| MCU pin	| additional function |
 | --- | --- | --- | 
-| 1	| D1	|  |
-| 2	|	D2 |  |
-| 3	| D3	|  |
-| 4	| D4	|  |
-| 5	| D5	|  |
-| 6	| D6	|  |
+| 1	| D1	| SPI_MISO  |
+| 2	|	D2 | SPI_SS |
+| 3	| D3	| SPI_MOSI |
+| 4	| D4	| SPI_SCK |
+| 5	| D5	| UART_TX or I2C_SDA |
+| 6	| D6	| UART_RX or I2C_SCL|
 | 7 | GND | GND | 
-| 8 | 3V3 | 3V3 | 
+| 8 | 3V3 | 3V3 on or off | 
 
 
 # WDT
