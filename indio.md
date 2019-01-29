@@ -2,10 +2,10 @@
 
 *Current version: HW REV: 5.2, FW REV: 3.0*
 
-1 [Setting up the Arduino IDE](setting-up-the-arduino-ide)
-2 [D21G specific features](d21g-board-specific-features)
-3 [IDC expansion port pinout](idc-expansion-port-pinout)
-4 Libraries for use with IND.I/O:
+1. [Setting up the Arduino IDE](setting-up-the-arduino-ide)
+2. [D21G specific features](d21g-board-specific-features)
+3. [IDC expansion port pinout](idc-expansion-port-pinout)
+4. Libraries for use with IND.I/O:
   * [UC1701](#uc1701) - LCD display
   * [U8G and U8G2](#u8g-and-u8g2) - LCD display
   * [Indio](#indio) - industrial I/O channels
@@ -14,11 +14,11 @@
     * [analog output](#analog-output)
     * [interrupts](#interrupts)
     * [calibration](#calibration)
-5 [RS485](#rs485)
-6 [RTC](#rtc) - D21G only
-7 [EEPROM](#eeprom)
-8 [WDT](#watchdog)
-9 [Modbus](#modbus) - RTU and TCP
+5. [RS485](#rs485)
+6. [RTC](#rtc) - D21G only
+7. [EEPROM](#eeprom)
+8. [WDT](#watchdog)
+9. [Modbus](#modbus) - RTU and TCP
 
 
 # Setting up the Arduino IDE
