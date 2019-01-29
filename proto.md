@@ -1,6 +1,6 @@
 # Industruino PROTO product documentation
 
-*Current version: HW REV: ??, FW REV: 3.0*
+*Current version: HW: 2.2 FW: 3.0*
 
 1. Setting up the Arduino [IDE](indio.md#setting-up-the-arduino-ide)
 2. [D21G](indio.md#d21g-board-specific-features) specific features
