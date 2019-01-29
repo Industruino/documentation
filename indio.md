@@ -36,7 +36,7 @@ D21G is compatible with IDE from 1.6.12 with automatic install via board manager
 
 # D21G board specific features
 
-* RESET button on D21G: when your computer does not recognise the USB port anymore, reset the D21G by pushing the reset button on the bottom of the topboard TWICE (you will have to remove the casing for this). The LCD backlight will start fading in&out, indicating the bootloader is active and ready for a new upload.
+* `RESET` button on D21G: when your computer does not recognise the USB port anymore, reset the D21G by pushing the reset button on the bottom of the topboard TWICE (you will have to remove the casing for this). The LCD backlight will start fading in&out, indicating the bootloader is active and ready for a new upload.
 * Serial ports on D21G: 
   * `SerialUSB` for USB (Serial Monitor)
   * `Serial` for hardware serial on D0/D1
@@ -110,7 +110,7 @@ U8G2_UC1701_MINI12864_F_4W_HW_SPI u8g2(U8G2_R2, /* cs=*/ 19, /* dc=*/ 22);
 # Indio
 
 ##### Important notes:    
-##### The digital and analog I/O will only work when Vin power (6.5-32V) is supplied to the Indio baseboard via the green screw connectors. When only USB power is connected, none of the digital or analog channels, nor the RS485, will work.
+##### The digital and analog I/O will only work when Vin power (6.5-32V) is supplied to the Indio baseboard via the green screw connectors. When only USB power is connected, none of the digital or analog channels, nor the RS485, will work.  
 ##### It is important to power down all systems (Industruino, sensors/actuators) before making connections to the Industruino.
 
 You can download the library from within the Arduino libraries manager or from [this repository](https://github.com/Industruino/Indio).
