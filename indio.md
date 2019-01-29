@@ -23,6 +23,7 @@
 
 For datasheets, user manuals, pinout maps, see [industruino.com](https://industruino.com/page/techcentre)
 
+(https://industruino.com/website/image/product.template/2_cd53b8d/image)
 
 # Setting up the Arduino IDE
 
