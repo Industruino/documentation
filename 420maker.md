@@ -1,6 +1,6 @@
 # Industruino 4-20mAker product documentation
 
-*Current version: HW REV: ??, FW REV: ??*
+*Current version: HW REV: 4.0, FW REV: 1.0*
 
 1. Setting up the Arduino [IDE](#setting-up-the-arduino-ide)
 2. [Wiring](#wiring-example) example
@@ -11,7 +11,7 @@
 
 For datasheets, user manuals, pinout maps, see [industruino.com](https://industruino.com/page/techcentre)
 
-![420maker](https://industruino.com/website/image/product.template/2_cd53b8d/image)
+![420maker](https://industruino.com/website/image/product.template/89_9ad0531/image)
 
 
 # Setting up the Arduino IDE
@@ -53,7 +53,7 @@ If using a separate power supply for each device:
   ```DAC->CTRLB.bit.REFSEL = 0x00; //Set DAC to external VREF (2.5V)```
   * the DAC has 12-bit resolution:   
   ```analogWriteResolution(12);```
-  * write a 12-bit number X to the current loop: (0-4095 corresponds to 3.75-21mA)   
+  * write a 12-bit number X to the current loop: (0-4095 corresponds to 3.8-20.7mA)   
   ```analogWrite(PIN_DAC0, X);```
 * The functions of the 6 GPIO pins can be chosen as options in the IDE menu *Tools > Board*
   * SPI + I2C
@@ -113,10 +113,3 @@ While powering the 4-20mAker with 12V is possible, it leaves almost no power ava
 The 4-20mAker can output a range from 3.8 to 21mA.
 However, if devices connected to it draw more than a few mA (e.g. an RC522 RFID reader) then the 4-20mAker will not be able to reach the lower end of the current range. A simple solution is to reduce the output range to e.g. 10-20mA.
 
-
-### NAMUR NE43 compliance
-
-The 4-20mAker can comply with the NAMUR NE43 standard to signal sensor failure:
-* output < 3.6mA means sensor failure
-* output between 3.8mA and 20.5mA means valid sensor information
-* output > 21mA means sensor failure
