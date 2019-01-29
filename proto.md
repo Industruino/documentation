@@ -25,6 +25,8 @@ The Industruino PROTO D21G is designed to work with 5V GPIO, while the MCU is ru
 
 The pins are connected directly to the MCU so we can use the standard Arduino functions.
 
+Note that the PROTO casing may have legacy labels for analog inputs, Please make sure to check the D21G pinout map for available analog input pins.
+
 
 ## Digital output
 Default HIGH signal is 3.3V. To get a digital output on the PROTO D21G at 5V level you should add a pull-up resistor to 5V (10K resistor should be sufficient).
