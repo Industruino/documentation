@@ -4,7 +4,7 @@
 
 1. Setting up the Arduino [IDE](indio.md#setting-up-the-arduino-ide)
 2. [D21G](indio.md#d21g-board-specific-features) specific features
-3. PROTO digital and analog [I/O features](#proto-i/o) 
+3. PROTO digital and analog [GPIO features](#proto-gpio) 
 4. [IDC](indio.md#idc-expansion-port-pinout) expansion port pinout
 5. Libraries for use with PROTO:
     * [UC1701](indio.md#uc1701-library) - LCD display default option
@@ -19,7 +19,7 @@ For datasheets, user manuals, pinout maps, see [industruino.com](https://industr
 ![PROTO](https://industruino.com/website/image/product.template/8_10e4d35/image)
 
 
-# PROTO I/O
+# PROTO GPIO
 
 The Industruino PROTO D21G is designed to work with 5V GPIO, while the MCU is running on 3.3V. The level shifters are bidirectional and support analog signals. Note that the output is at 3.3V by default. 
 
