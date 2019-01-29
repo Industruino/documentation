@@ -6,9 +6,9 @@
 2. [D21G](#d21g-board-specific-features) specific features
 3. [IDC](#idc-expansion-port-pinout) expansion port pinout
 4. Libraries for use with IND.I/O:
-    * [UC1701](#uc1701) - LCD display
-    * [U8G and U8G2](#u8g-and-u8g2) - LCD display
-    * [Indio](#indio) - industrial I/O channels
+    * [UC1701](#uc1701-library) - LCD display default option
+    * [U8G and U8G2](#u8g-and-u8g2-libraries) - LCD display advanced option
+    * [Indio](#indio-library) - industrial I/O channels
       * [digital I/O](#digital-io) 
       * [interrupts](#interrupts)      
       * [analog input](#analog-input)
@@ -78,7 +78,7 @@ Unlike the IND.I/O's digital and analog I/O channels, the IDC expansion port pro
 | 14	| / | D3/SCL |	PROTO: no	<br> IND.I/O: yes | used for I2C RTC|
 
 
-# UC1701
+# UC1701 library
 
 You can download the library from within the Arduino libraries manager or from [this repository](https://github.com/Industruino/UC1701). This library is easy to use, relatively small (it is also used in the Industruino pre-installed demo sketches). It is largely compatible with the popular PCD8544 (Nokia screens), with familiar syntax:  
 ```
@@ -89,7 +89,7 @@ lcd.print("hello Industruino!");
 ```
 
 
-# U8G and U8G2
+# U8G and U8G2 libraries
 
 [U8G](https://github.com/olikraus/u8glib) is a popular display library with many fonts and graphics, consuming more memory than the basic UC1701 above. Use this constructor:
 ```
@@ -108,7 +108,7 @@ U8G2_UC1701_MINI12864_F_4W_HW_SPI u8g2(U8G2_R2, /* cs=*/ 19, /* dc=*/ 22);
 ```
 
 
-# Indio
+# Indio library
 
 Important notes:    
 1. The digital and analog I/O will only work when Vin power (6.5-32V) is supplied to the Indio baseboard via the green screw connectors. When only USB power is connected, none of the digital or analog channels, nor the RS485, will work.  
