@@ -3,8 +3,8 @@
 *Current version: HW REV: 5.2, FW REV: 3.0*
 
 1. Setting up the Arduino [IDE](#setting-up-the-arduino-ide)
-2. [D21G] specific features(#d21g-board-specific-features)
-3. [IDC] expansion port pinout(#idc-expansion-port-pinout)
+2. [D21G](#d21g-board-specific-features) specific features
+3. [IDC](#idc-expansion-port-pinout) expansion port pinout
 4. Libraries for use with IND.I/O:
     * [UC1701](#uc1701) - LCD display
     * [U8G and U8G2](#u8g-and-u8g2) - LCD display
