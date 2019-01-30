@@ -19,6 +19,7 @@
 7. [EEPROM](#eeprom)
 8. [WDT](#watchdog)
 9. [Modbus](#modbus) - RTU and TCP
+10. [TFTP](#tftp) - upload sketch over Ethernet
 
 
 For datasheets, user manuals, pinout maps, see [industruino.com](https://industruino.com/page/techcentre)
@@ -515,3 +516,73 @@ Modbus is a serial communications protocol popular in industry. It uses a Master
 Modbus uses 16-bit registers, we so often need to convert these from/to 32-bit `float` and `long` types; you can use the functions described [here](https://industruino.com/blog/our-news-1/post/modbus-tips-for-industruino-26).
 
 
+# TFTP
+
+The Industruino D21G topboard offers the possiblity to upload a sketch over Ethernet instead of the usual USB. This is accomplished with a special Ethernet/USB hybrid bootloader. The procedure is as follows:
+1. Hardware switch on the topboard: make sure the switch 'Eth Boot' is set to the ON position
+2. Network settings in FRAM: store your network configuration in non-volatile memory
+3. Upload a sketch over USB that includes the ```ResetServer``` elements
+4. Prepare the new sketch to be uploaded over Ethernet with TFTP:
+   * Include the ```ResetServer``` elements
+   * Export the sketch as binary file .bin
+   * Process the binary with the ```prepareFile``` utility
+   * Use TFTP to start the upload
+   * Reset the Industruino via your browser to allow the upload to be received
+   
+
+Here are more details about each step.
+
+### Hardware switch 'Eth boot'
+
+You will have to remove the casing of your Industruino to reach the bottom of the topboard. Next to the battery holder you will find the 'Eth boot' switch; slide to the ON position (towards the battery holder). You can still upload sketches over USB, but now the bootloader will also get the network settings from FRAM memory to listen for an Ethernet upload request.
+
+
+### Network setting in FRAM
+
+We recommend to use the unique MAC address from the RTC EEPROM. Use this [sketch](https://github.com/Industruino/democode/blob/master/MACfromRTC/MACfromRTC.ino) to retrieve this 6-byte MAC address and note it down.
+
+FRAM is non-volatile memory, included in the Industruino Ethernet module. Install the FRAM library from [here](https://github.com/Industruino/FRAM) and open the NetConfigDataMgr sketch. This sketch can be used to READ, WRITE, ERASE the network settings. 
+* Connect your Industruino with the Ethernet module and power up with external PSU
+* Uncomment the WRITE line (24), and comment out the READ line (23)
+* Edit the 4 network settings MAC (as above), IP, MASK, GATEWAY
+* You can pick a password (default: 'password') but make sure to use 8 characters; this password is the key that will accept incoming sketch upload requests over TFTP
+* Upload the sketch and check output on the Serial Monitor to make sure your settings are correct
+* Verify the settings are correctly stored by activating the READ line, uploading the sketch, and check Serial Monitor
+
+
+### ResetServer
+
+In your Arduino IDE, open *File > Examples* and under 'Examples for Industruino D21G' find the ```EthernetReset``` folder with the ```ResetServer``` sketch. Alternatively, use the [demo sketch](https://github.com/Industruino/democode/blob/master/ResetServerTFTP_D21G/ResetServerTFTP_D21G.ino) with feedback on the LCD.
+
+This sketch shows the elements that are necessary to reset your Industruino over Ethernet. You have to include these elements in the original sketch and in the updated sketch. Modify your network settings same as before.
+
+Upload the sketch over USB. You can now test it by going to this URL in your browser: 
+```http://192.168.1.199:8080/password/reset```
+This should reply 'Rebooting...' and reset your Industruino.  
+Note the password is the same as you set in the sketch.
+
+
+### TFTP upload
+
+This involves a few steps to prepare the binary file to be sent over TFTP.
+
+* Make sure to include the ResetServer elements in the new sketch you want to upload if you want to upload over Ethernet again.
+* Use the 'Export compiled Binary' tool in the Arduino IDE to get the .bin in your sketch folder.
+* Download the [prepareFile](https://static.industruino.com/downloads/code/prepareFile.zip) utility and use the command line to navigate to your platform's folder (win, mac, linux32/64)
+* Find the executable 'prepareFile' and use this syntax to obtain the binary outputFile:
+```./prepareFile password inputFile outputFile```
+* Start the TFTP session:
+```
+tftp 192.168.1.199
+> mode binary
+> trace
+> verbose
+> put outputFile
+```
+* TFTP will attempt to send the file but it will not be able to establish the connection until the Industruino is reset, so use your browser to reset, before the TFTP reaches timeout.
+
+
+### Troubleshooting
+
+* Make sure your FRAM network settings are identical to settings in the sketch that is running (incl MAC address)
+* Make sure your computer and network allow TFTP traffic. TFTP uses UDP on port 69 and then random ports so it is possible your firewall blocks the upload, resulting in a TFTP timeout.
