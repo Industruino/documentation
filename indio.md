@@ -518,7 +518,7 @@ Modbus uses 16-bit registers, we so often need to convert these from/to 32-bit `
 
 # TFTP
 
-The Industruino D21G topboard offers the possiblity to upload a sketch over Ethernet instead of the usual USB. This is accomplished with a special Ethernet/USB hybrid bootloader. The procedure is as follows:
+The Industruino D21G topboard offers the possiblity to upload a sketch over Ethernet instead of the usual USB. This is accomplished with a special Ethernet/USB hybrid bootloader. This is an overview of the procedure, with more details [below](#hardware-switch):
 1. Hardware switch on the topboard: make sure the switch 'Eth Boot' is set to the ON position
 2. Network settings in FRAM: store your network configuration in non-volatile memory
 3. Upload a sketch over USB that includes the ```ResetServer``` elements
@@ -530,7 +530,8 @@ The Industruino D21G topboard offers the possiblity to upload a sketch over Ethe
    * Reset the Industruino via your browser to allow the upload to be received
    
 
-Here are more details about each step.
+Here are more details about each step. Original blog post [here](https://industruino.com/blog/our-news-1/post/remote-sketch-upload-via-ethernet-27).
+
 
 ### Hardware switch 'Eth boot'
 
