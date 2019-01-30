@@ -518,7 +518,7 @@ Modbus uses 16-bit registers, we so often need to convert these from/to 32-bit `
 
 # TFTP
 
-The Industruino D21G topboard offers the possiblity to upload a sketch over Ethernet instead of the usual USB. This is accomplished with a special Ethernet/USB hybrid bootloader. This is an overview of the procedure, with more details [below](#hardware-switch):
+The Industruino D21G topboard offers the possiblity to upload a sketch over Ethernet instead of the usual USB. This is accomplished with a special Ethernet/USB hybrid bootloader. This is an overview of the procedure, with more details [below]:
 1. Hardware switch on the topboard: make sure the switch 'Eth Boot' is set to the ON position
 2. Network settings in FRAM: store your network configuration in non-volatile memory
 3. Upload a sketch over USB that includes the ```ResetServer``` elements
@@ -526,6 +526,7 @@ The Industruino D21G topboard offers the possiblity to upload a sketch over Ethe
    * Include the ```ResetServer``` elements
    * Export the sketch as binary file .bin
    * Process the binary with the ```prepareFile``` utility
+5. Upload the sketch over Ethernet
    * Use TFTP to start the upload
    * Reset the Industruino via your browser to allow the upload to be received
    
@@ -558,8 +559,8 @@ In your Arduino IDE, open *File > Examples* and under 'Examples for Industruino 
 This sketch shows the elements that are necessary to reset your Industruino over Ethernet. You have to include these elements in the original sketch and in the updated sketch. Modify your network settings same as before.
 
 Upload the sketch over USB. You can now test it by going to this URL in your browser: 
-```http://192.168.1.199:8080/password/reset```
-This should reply 'Rebooting...' and reset your Industruino.  
+```http://192.168.1.199:8080/password/reset```   
+This should reply 'Rebooting...' and reset your Industruino.    
 Note the password is the same as you set in the sketch.
 
 
