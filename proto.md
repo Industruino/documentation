@@ -12,6 +12,7 @@
 6. [RTC](indio.md#rtc)
 7. [EEPROM](indio.md#eeprom)
 8. [WDT](indio.md#watchdog)
+9. [TFTP](indio.md#tftp) - upload sketch over Ethernet
 
 
 For datasheets, user manuals, pinout maps, see [industruino.com](https://industruino.com/page/techcentre)
