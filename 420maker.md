@@ -120,9 +120,9 @@ Due to the non-isolated nature of the transmitter we recommend that you use a US
 
 # Tested sensors
 
-Sensor | Tested | Example sketch |Remarks
+Sensor | Type | Tested | Example sketch |Remarks
 --- | --- | --- | ---
-DHT11 | OK | [dht11-demo](https://github.com/Industruino/democode/blob/master/420mAker/dht11-demo/dht11-demo.ino) | use pull-up resistor as usual
-DS18B20 | OK | [ds18b20-demo](https://github.com/Industruino/democode/blob/master/420mAker/ds18b20-demo/ds18b20-demo.ino) | use pull-up resistor as usual
-MPU6050 | OK | [mpu6050-demo](https://github.com/Industruino/democode/blob/master/420mAker/mpu6050-demo/mpu6050-demo.ino) |
-RC522 | OK | [rfid-mfrc522-demo](https://github.com/Industruino/democode/blob/master/420mAker/rfid-mfrc522-demo/rfid-mfrc522-demo.ino) | requires around 10mA at 3.3V so reduce the output range to e.g. 10-20mA
+DHT11 | temperature + humidity | OK | [dht11-demo](https://github.com/Industruino/democode/blob/master/420mAker/dht11-demo/dht11-demo.ino) | use pull-up resistor as usual
+DS18B20 | temperature | OK | [ds18b20-demo](https://github.com/Industruino/democode/blob/master/420mAker/ds18b20-demo/ds18b20-demo.ino) | use pull-up resistor as usual
+MPU6050 | gyro + accelerometer | OK | [mpu6050-demo](https://github.com/Industruino/democode/blob/master/420mAker/mpu6050-demo/mpu6050-demo.ino) |
+RC522 | rfid | OK | [rfid-mfrc522-demo](https://github.com/Industruino/democode/blob/master/420mAker/rfid-mfrc522-demo/rfid-mfrc522-demo.ino) | requires around 10mA at 3.3V so reduce the output range to e.g. 10-20mA
