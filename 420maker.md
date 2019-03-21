@@ -8,6 +8,7 @@
 4. [GPIO](#gpio) notes
 5. [WDT](#wdt)
 6. [Application notes](#application-notes)
+7. [Tested sensors](#tested-sensors)
 
 For datasheets, user manuals, pinout maps, see [industruino.com](https://industruino.com/page/techcentre)
 
@@ -116,3 +117,12 @@ To clear the WDT:
 
 Due to the non-isolated nature of the transmitter we recommend that you use a USB isolator for programming and calibration via the USB port.
 
+
+# Tested sensors
+
+Sensor | Tested | Example sketch |Remarks
+--- | --- | --- | ---
+DHT11 | OK | [dht11-demo](https://github.com/Industruino/democode/blob/master/420mAker/dht11-demo/dht11-demo.ino) | use pull-up resistor as usual
+DS18B20 | OK | [ds18b20-demo](https://github.com/Industruino/democode/blob/master/420mAker/ds18b20-demo/ds18b20-demo.ino) | use pull-up resistor as usual
+MPU6050 | OK | [mpu6050-demo](https://github.com/Industruino/democode/blob/master/420mAker/mpu6050-demo/mpu6050-demo.ino) |
+RC522 | OK | [rfid-mfrc522-demo](https://github.com/Industruino/democode/blob/master/420mAker/rfid-mfrc522-demo/rfid-mfrc522-demo.ino) | requires around 10mA at 3.3V so reduce the output range to e.g. 10-20mA
