@@ -121,7 +121,7 @@ Due to the non-isolated nature of the transmitter we recommend that you use a US
 # Tested sensors
 
 Sensor | Type | Tested | Example sketch |Remarks
---- | --- | --- | ---
+--- | --- | --- | --- | ---
 DHT11 | temperature + humidity | OK | [dht11-demo](https://github.com/Industruino/democode/blob/master/420mAker/dht11-demo/dht11-demo.ino) | use pull-up resistor as usual
 DS18B20 | temperature | OK | [ds18b20-demo](https://github.com/Industruino/democode/blob/master/420mAker/ds18b20-demo/ds18b20-demo.ino) | use pull-up resistor as usual
 MPU6050 | gyro + accelerometer | OK | [mpu6050-demo](https://github.com/Industruino/democode/blob/master/420mAker/mpu6050-demo/mpu6050-demo.ino) |
