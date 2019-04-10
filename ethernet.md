@@ -13,7 +13,7 @@ For datasheets, user manuals, pinout maps, see [industruino.com](https://industr
 ![ETHERNET](https://industruino.com/website/image/product.template/10_1e844ce/image)
 
 
-## Important note:
+**Important note:**
 
 **The Industruino IND.I/O has to be powered by 8-28V to make the Ethernet module work; it does not work with USB power only.**
 
