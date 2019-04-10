@@ -13,6 +13,11 @@ For datasheets, user manuals, pinout maps, see [industruino.com](https://industr
 ![ETHERNET](https://industruino.com/website/image/product.template/10_1e844ce/image)
 
 
+## Important note:
+
+**The Industruino IND.I/O has to be powered by 8-28V to make the Ethernet module work; it does not work with USB power only.**
+
+
 # Ethernet2 library
 
 If you have the D21G Topboard please use Industruino version of the [Ethernet2 library](https://github.com/Industruino/Ethernet2). This is a fork of the original Ethernet2, with one important change: the SPI speed is set to 4MHz in this [file, line 25](https://github.com/Industruino/Ethernet2/blob/master/src/utility/w5500.cpp).
