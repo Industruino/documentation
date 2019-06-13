@@ -8,7 +8,8 @@ The Industruino Ethernet module has several functions:
 3. [SD card](#sd-card) interface
 
 
-For datasheets, user manuals, pinout maps, see [industruino.com](https://industruino.com/page/techcentre)
+For datasheets, user manuals, pinout maps, see [industruino.com](https://industruino.com/page/techcentre)  
+For a plug&play test sketch, see this [IndustruinoEthernetClient](https://github.com/Industruino/Ethernet2/tree/master/examples/IndustruinoEthernetClient) sketch in the Ethernet2 library examples
 
 ![ETHERNET](https://industruino.com/website/image/product.template/10_1e844ce/image)
 
