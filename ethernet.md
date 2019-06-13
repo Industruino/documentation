@@ -9,7 +9,7 @@ The Industruino Ethernet module has several functions:
 
 
 For datasheets, user manuals, pinout maps, see [industruino.com](https://industruino.com/page/techcentre)  
-For a plug&play test sketch, see this [IndustruinoEthernetClient](https://github.com/Industruino/Ethernet2/tree/master/examples/IndustruinoEthernetClient) sketch in the Ethernet2 library examples
+For a plug&play test sketch, see this [IndustruinoEthernetClient](https://github.com/Industruino/Ethernet2/tree/master/examples/IndustruinoEthernetClient) sketch in the Ethernet2 library examples, with details in this [blog post](https://industruino.com/blog/our-news-1/post/industruino-ethernet-example-38).
 
 ![ETHERNET](https://industruino.com/website/image/product.template/10_1e844ce/image)
 
