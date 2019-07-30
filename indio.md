@@ -102,10 +102,9 @@ Use this constructor for software SPI:
 ```
 U8G2_UC1701_MINI12864_1_4W_SW_SPI u8g2(U8G2_R2, 21, 20, 19, 22);   // rotation, clock, data, cs, dc
 ```
-Hardware SPI: may also work on D21G Topboard: Change SPI interface #define from "SPI" to "SPI1" in src/U8x8lib.cpp line #49).
 Use this constructor for hardware SPI:
 ```
-U8G2_UC1701_MINI12864_F_4W_HW_SPI u8g2(U8G2_R2, /* cs=*/ 19, /* dc=*/ 22);
+U8G2_UC1701_MINI12864_F_2ND_4W_HW_SPI u8g2(U8G2_R2, /* cs=*/ 19, /* dc=*/ 22);
 ```
 
 
