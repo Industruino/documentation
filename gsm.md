@@ -9,7 +9,7 @@
 5. [RS232](#rs232)
 
 
-For datasheets, user manuals, pinout maps, see [industruino.com](https://industruino.com/page/techcentre)
+For datasheets, user manuals, pinout maps, see [industruino.com](https://industruino.com/page/techcentre) and for an easy plug&play example, see this [blog post](https://industruino.com/blog/our-news-1/post/gsm-gprs-easy-plug-play-39).
 
 ![GSM/GPRS](https://industruino.com/website/image/product.template/65_eb07355/image)
 
