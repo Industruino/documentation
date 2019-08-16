@@ -35,7 +35,7 @@ A note on the LED on the GSM/GPRS module: this indicates the network status of t
 
 Next to the LED there are 2 small buttons:
 * left button is the RESET of the SIM800
-* right button is the PWR button to switch on/off
+* right button is the PWR button to switch on/off (connected to D6)
 
 
 # GSM/GPRS library options
