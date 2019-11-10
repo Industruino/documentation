@@ -46,7 +46,7 @@ If you want to use the Adafruit FONA library, be aware that the Industruino GSM/
 
 # SD card
 
-The standard SD library included in the Arduino IDE works with the Ethernet module with minor modifications (CS is D4 as standard): for the D21G replace *Serial* by *SerialUSB*.
+The standard SD library included in the Arduino IDE works with the GSM/GPRS module with minor modifications (CS is D4 as standard): for the D21G replace *Serial* by *SerialUSB*.
 
 # RS232
 
