@@ -148,6 +148,7 @@ Notes:
 * INPUT logic HIGH voltage is >11V and logic LOW is <3V
 * INPUT maximum trigger frequency is 10kHz (see below for interrupts)
 * OUTPUT maximum switching frequency is 400Hz
+* example of how to connect [NPN and PNP](https://industruino.com/blog/our-news-1/post/industrial-proximity-sensors-for-rpm-40) type sensors
 
 
 ### INTERRUPTS
