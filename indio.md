@@ -595,4 +595,4 @@ tftp 192.168.1.199
 ### Troubleshooting
 
 * Make sure your FRAM network settings are identical to settings in the sketch that is running (incl MAC address)
-* Make sure your computer and network allow TFTP traffic. TFTP uses UDP on port 69 and then random ports so it is possible your firewall blocks the upload, resulting in a TFTP timeout.
+* Make sure your computer and network allow TFTP traffic. TFTP uses UDP on port 69 and then random ports so it is possible your firewall blocks the upload, resulting in a TFTP timeout. If you suspect a network issue, you can test with the simplest possible network: an Ethernet cable from your laptop to your Industruino, with the laptop disconnect from wifi/LAN. Your laptop should be configured with a fixed IP address, e.g. 192.168.1.1, also used as gateway, and mask 255.255.255.0. Just make sure to use a compatible fixed IP address on the Industruino, e.g. 192.168.1.199.
