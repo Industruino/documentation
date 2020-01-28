@@ -590,6 +590,7 @@ tftp 192.168.1.199
 > put outputFile
 ```
 * TFTP will attempt to send the file but it will not be able to establish the connection until the Industruino is reset, so use your browser to reset, before the TFTP reaches timeout.
+* The process can be automated with a simple Linux [shell script](https://github.com/Industruino/democode/blob/master/ResetServerTFTP_D21G/industruino_tftp.sh): this example resets the board by URL first and then immediately starts the TFTP put. Timing is critical, as the reset only activates the bootloader for a couple of seconds. If that window is too short for your application, you can make use of the longer TFTP timeout (around 25 seconds on standard Linux), and first initiate the TFTP put, and then reset by URL.
 
 
 ### Troubleshooting
