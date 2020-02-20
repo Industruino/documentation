@@ -59,7 +59,10 @@ D21G is compatible with IDE from 1.6.12 with automatic install via board manager
 
 # IDC expansion port pinout
 
-Unlike the IND.I/O's digital and analog I/O channels, the IDC expansion port provides direct access to the MCU's GPIO pins. This port is intended for use with Industruino Ethernet module or Industruino GSM/GPRS module, but in other cases, the IDC pins can also be used to connect other devices to the IND.I/O. These pins are accessible with standard `pinMode`, `digitalRead` and `digitalWrite` commands (different from the IND.I/O digital I/O channels which are controlled by the Indio library). Please note the D21G works at 3.3V: if you need 5V output, use a 10K pull-up resistor.
+Unlike the IND.I/O's digital and analog I/O channels, the IDC expansion port provides direct access to the MCU's GPIO pins. This port is intended for use with Industruino Ethernet module or Industruino GSM/GPRS module, but in other cases, the IDC pins can also be used to connect other devices to the IND.I/O. These pins are accessible with standard `pinMode`, `digitalRead` and `digitalWrite` commands (different from the IND.I/O digital I/O channels which are controlled by the Indio library). Please note:
+* the D21G works at 3.3V: if you need 5V output, use a 10K pull-up resistor. 
+* the Industruino's DC/DC converter (V+/V- to 5V) is 2W, so can supply 400mA max on the 5V line. The topboard needs around 50mA, depending on the LCD backlight, so 350mA is available on the IDC 5V.
+
 
 | IDC pin number	| Module function	| Arduino pin	| Default connected	| Required for standard functions |
 | --- | --- | --- | --- | --- |
