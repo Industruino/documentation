@@ -42,6 +42,10 @@ If you are using the Industruino Ethernet module with legacy 32u4 or 1286 topboa
 #include <EthernetIndustruino.h>
 ```
 
+### Modbus TCP
+
+If you want to connect 2 or more Industruinos over Ethernet, or integrate your Industruino into a Modbus TCP network as Master or Slave, you can use the [ArduinoModbus](https://github.com/arduino-libraries/ArduinoModbus) library. Here we provide an example of how to connect 2 Indstruinos over [Modbus TCP](https://industruino.com/blog/our-news-1/post/modbus-tcp-between-2-industruinos-43).
+
 # FRAM
 
 The Ethernet module also includes FRAM non-volatile memory: see this [demo sketch](https://github.com/Industruino/democode/tree/master/fram_D21G). 
