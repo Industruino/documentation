@@ -61,6 +61,7 @@ If using a separate power supply for each device:
   * SPI + I2C
   * SPI + UART
   * I2C + UART
+* Depending on what sensor you use, you may need pull-up resistors on the I2C lines
 * The 3V3 pin can be switched on and off in the code:  
 ```digitalWrite(PIN_EXT_3V3_ENABLE, HIGH);```  
   The initial state of this pin can be set as an option in the IDE menu *Tools > Board*
