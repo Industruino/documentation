@@ -13,7 +13,7 @@
 7. [EEPROM](indio.md#eeprom)
 8. [WDT](indio.md#watchdog)
 9. [TFTP](indio.md#tftp) - upload sketch over Ethernet
-10. [Security](indio.md#security-bit) - protect your code
+10. [Security bit](indio.md#security-bit) - protect your code
 
 
 For datasheets, user manuals, pinout maps, see [industruino.com](https://industruino.com/page/techcentre)
