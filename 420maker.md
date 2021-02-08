@@ -9,7 +9,7 @@
 5. [WDT](#wdt)
 6. [Application notes](#application-notes)
 7. [Tested sensors](#tested-sensors)
-8. [Security bit](#security-bit)
+8. [Security bit](#security-bit) protect your code
 
 For datasheets, user manuals, pinout maps, see [industruino.com](https://industruino.com/page/techcentre)
 
