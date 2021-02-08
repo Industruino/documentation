@@ -9,7 +9,7 @@
 5. [WDT](#wdt)
 6. [Application notes](#application-notes)
 7. [Tested sensors](#tested-sensors)
-8. [Security](#security bit)
+8. [Security bit](#security-bit)
 
 For datasheets, user manuals, pinout maps, see [industruino.com](https://industruino.com/page/techcentre)
 
@@ -129,7 +129,7 @@ DS18B20 | temperature | OK | [ds18b20-demo](https://github.com/Industruino/democ
 MPU6050 | gyro + accelerometer | OK | [mpu6050-demo](https://github.com/Industruino/democode/blob/master/420mAker/mpu6050-demo/mpu6050-demo.ino) |
 RC522 | rfid | OK | [rfid-mfrc522-demo](https://github.com/Industruino/democode/blob/master/420mAker/rfid-mfrc522-demo/rfid-mfrc522-demo.ino) | requires around 10mA at 3.3V so reduce the output range to e.g. 10-20mA
 
-# Security
+# Security bit
 
 In order to protect the intellectual property of your code, it is possible to set a security bit in the SAMD21G microcontroller, which effectively blocks any attempt to download the compiled code from the microcontroller's internal FLASH memory by a third party. 
 
