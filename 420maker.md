@@ -9,6 +9,7 @@
 5. [WDT](#wdt)
 6. [Application notes](#application-notes)
 7. [Tested sensors](#tested-sensors)
+8. [Security](#security bit)
 
 For datasheets, user manuals, pinout maps, see [industruino.com](https://industruino.com/page/techcentre)
 
@@ -127,3 +128,13 @@ DHT11 | temperature + humidity | OK | [dht11-demo](https://github.com/Industruin
 DS18B20 | temperature | OK | [ds18b20-demo](https://github.com/Industruino/democode/blob/master/420mAker/ds18b20-demo/ds18b20-demo.ino) | use pull-up resistor as usual
 MPU6050 | gyro + accelerometer | OK | [mpu6050-demo](https://github.com/Industruino/democode/blob/master/420mAker/mpu6050-demo/mpu6050-demo.ino) |
 RC522 | rfid | OK | [rfid-mfrc522-demo](https://github.com/Industruino/democode/blob/master/420mAker/rfid-mfrc522-demo/rfid-mfrc522-demo.ino) | requires around 10mA at 3.3V so reduce the output range to e.g. 10-20mA
+
+# Security
+
+In order to protect the intellectual property of your code, it is possible to set a security bit in the SAMD21G microcontroller, which effectively blocks any attempt to download the compiled code from the microcontroller's internal FLASH memory by a third party. 
+
+* A demo sketch which sets this bit can be found [here](https://github.com/Industruino/democode/tree/master/SAML21B_SecurityBit). You can integrate the functions seen in this demo  sketch into your own application sketch. 
+
+* Running the ```if (!setSecurityBit()){};``` command in your Setup() routine will enable the security bit. 
+
+WARNING: Afterwards you will still be able to upload new code (the old protected code gets erased), but you can not read-back the FLASH contents of the MCU. To disable the security you will need to use an in-circuit debugger such as the Atmel ICE.
