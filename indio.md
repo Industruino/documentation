@@ -608,6 +608,6 @@ In order to protect the intellectual property of your code, it is possible to se
 
 * A demo sketch which sets this bit can be found [here](https://github.com/Industruino/democode/tree/master/SAMD21_SecurityBit). You can integrate the functions seen in this demo  sketch into your own application sketch. 
 
-* Running the ```if (!setSecurityBit()){};``` command in your Setup(); routine will enable the security bit. 
+* Running the ```if (!setSecurityBit()){};``` command in your Setup() routine will enable the security bit. 
 
 WARNING: Afterwards you will still be able to upload new code (the old protected code gets erased), but you can not read-back the FLASH contents of the MCU. To disable the security you will need to use an in-circuit debugger such as the Atmel ICE.
