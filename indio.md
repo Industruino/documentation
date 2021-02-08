@@ -20,6 +20,7 @@
 8. [WDT](#watchdog)
 9. [Modbus](#modbus) - RTU and TCP
 10. [TFTP](#tftp) - upload sketch over Ethernet
+11. [Security bit](#Security bit) - protect your code
 
 
 For datasheets, user manuals, pinout maps, see [industruino.com](https://industruino.com/page/techcentre)
@@ -526,10 +527,6 @@ Modbus is a serial communications protocol popular in industry. It uses a Master
 
 Modbus uses 16-bit registers, we so often need to convert these from/to 32-bit `float` and `long` types; you can use the functions described [here](https://industruino.com/blog/our-news-1/post/modbus-tips-for-industruino-26).
 
-# Security bit
-
-In order to protect the intellectual property of your code, it is possible to set a security bit in the SAMD21G microcontroller, which effectively blocks any attempt to download the compiled code from the microcontroller's FLASH by a third party. A demo sketch which sets this bit can be found [here](https://github.com/Industruino/democode/tree/master/SAMD21_SecurityBit). You can integrate the functions seen in this demo sketch into your own application sketch. Running the '''if (!setSecurityBit()) { } ''' command in your Setup(); routine will enable the security bit. Afterwards you will still be able to upload new code (the old protected code gets erased), but you can not read-back the FLASH contents of the MCU. To disable the security you will need to use an in-circuit debugger such as the Atmel ICE.
-
 # TFTP
 
 The Industruino D21G topboard offers the possiblity to upload a sketch over Ethernet instead of the usual USB. This is accomplished with a special Ethernet/USB hybrid bootloader. This is an overview of the procedure, with more details [below]:
@@ -597,6 +594,17 @@ tftp 192.168.1.199
 ```
 * TFTP will attempt to send the file but it will not be able to establish the connection until the Industruino is reset, so use your browser to reset, before the TFTP reaches timeout.
 * The process can be automated with a simple Linux [shell script](https://github.com/Industruino/democode/blob/master/ResetServerTFTP_D21G/industruino_tftp.sh): this example resets the board by URL first and then immediately starts the TFTP put. Timing is critical, as the reset only activates the bootloader for a couple of seconds. If that window is too short for your application, you can make use of the longer TFTP timeout (around 25 seconds on standard Linux), and first initiate the TFTP put, and then reset by URL.
+
+
+# Security bit
+
+In order to protect the intellectual property of your code, it is possible to set a security bit in the SAMD21G microcontroller, which effectively blocks any attempt to download the compiled code from the microcontroller's internal FLASH memory by a third party. 
+
+*A demo sketch which sets this bit can be found [here](https://github.com/Industruino/democode/tree/master/SAMD21_SecurityBit). You can integrate the functions seen in this demo sketch into your own application sketch. 
+
+*Running the ```if (!setSecurityBit()){};``` command in your Setup(); routine will enable the security bit. 
+
+WARNING: Afterwards you will still be able to upload new code (the old protected code gets erased), but you can not read-back the FLASH contents of the MCU. To disable the security you will need to use an in-circuit debugger such as the Atmel ICE.
 
 
 ### Troubleshooting
