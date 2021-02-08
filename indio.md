@@ -596,7 +596,13 @@ tftp 192.168.1.199
 * The process can be automated with a simple Linux [shell script](https://github.com/Industruino/democode/blob/master/ResetServerTFTP_D21G/industruino_tftp.sh): this example resets the board by URL first and then immediately starts the TFTP put. Timing is critical, as the reset only activates the bootloader for a couple of seconds. If that window is too short for your application, you can make use of the longer TFTP timeout (around 25 seconds on standard Linux), and first initiate the TFTP put, and then reset by URL.
 
 
-# Security bit
+### Troubleshooting
+
+* Make sure your FRAM network settings are identical to settings in the sketch that is running (incl MAC address)
+* Make sure your computer and network allow TFTP traffic. TFTP uses UDP on port 69 and then random ports so it is possible your firewall blocks the upload, resulting in a TFTP timeout. If you suspect a network issue, you can test with the simplest possible network: an Ethernet cable from your laptop to your Industruino, with the laptop disconnect from wifi/LAN. Your laptop should be configured with a fixed IP address, e.g. 192.168.1.1, also used as gateway, and mask 255.255.255.0. Just make sure to use a compatible fixed IP address on the Industruino, e.g. 192.168.1.199.
+
+
+### Security bit
 
 In order to protect the intellectual property of your code, it is possible to set a security bit in the SAMD21G microcontroller, which effectively blocks any attempt to download the compiled code from the microcontroller's internal FLASH memory by a third party. 
 
@@ -605,9 +611,3 @@ In order to protect the intellectual property of your code, it is possible to se
 *Running the ```if (!setSecurityBit()){};``` command in your Setup(); routine will enable the security bit. 
 
 WARNING: Afterwards you will still be able to upload new code (the old protected code gets erased), but you can not read-back the FLASH contents of the MCU. To disable the security you will need to use an in-circuit debugger such as the Atmel ICE.
-
-
-### Troubleshooting
-
-* Make sure your FRAM network settings are identical to settings in the sketch that is running (incl MAC address)
-* Make sure your computer and network allow TFTP traffic. TFTP uses UDP on port 69 and then random ports so it is possible your firewall blocks the upload, resulting in a TFTP timeout. If you suspect a network issue, you can test with the simplest possible network: an Ethernet cable from your laptop to your Industruino, with the laptop disconnect from wifi/LAN. Your laptop should be configured with a fixed IP address, e.g. 192.168.1.1, also used as gateway, and mask 255.255.255.0. Just make sure to use a compatible fixed IP address on the Industruino, e.g. 192.168.1.199.
