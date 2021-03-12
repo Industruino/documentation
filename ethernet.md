@@ -31,6 +31,13 @@ For D21G
 #include <Ethernet2.h>
 ```
 
+Note: it is possible to use the standard Ethernet library that comes with the Arduino IDE, but that requires a modification to the file ```arduino-1.8.x/libraries/Ethernet/src/utility/w5100.h```. [Line 48](https://github.com/arduino-libraries/Ethernet/blob/75a3c37b5e513305b82e926ca6a4f8190f536c9d/src/utility/w5100.h#L48) defines the SPI speed as 8MHz; that needs to be reduced to 4MHz for use with the Industruino Ethernet module. The line should read:
+```
+#define SPI_ETHERNET_SETTINGS SPISettings(4000000, MSBFIRST, SPI_MODE0)   // for Industruino 4MHz
+```
+The standard library examples will work after you change ```Serial``` to ```SerialUSB```.
+
+
 ### MAC address
 
 For a unique MAC-address, you can use the EUI-64 number stored in the D21G's RTC (MCP79402), for an example see this [sketch](https://github.com/Industruino/democode/blob/master/MACfromRTC/MACfromRTC.ino).
