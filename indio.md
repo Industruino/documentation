@@ -471,7 +471,7 @@ Note: the current IND.I/O baseboards have a hardware switch to connect/disconnec
 
 Note: the INDIO board has 3 jumpers for RS485 termination resistors, for details see [here](https://industruino.com/blog/our-news-1/post/modbus-rtu-master-and-slave-14).
 
-For Modbus RTU, see below.
+For [Modbus RTU](#modbus), see below.
 
 
 # RTC
