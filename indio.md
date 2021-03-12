@@ -471,20 +471,7 @@ Note: the current IND.I/O baseboards have a hardware switch to connect/disconnec
 
 Note: the INDIO board has 3 jumpers for RS485 termination resistors, for details see [here](https://industruino.com/blog/our-news-1/post/modbus-rtu-master-and-slave-14).
 
-We can use the [SimpleModbusMaster and SimpleModbusSlave libraries](https://drive.google.com/folderview?id=0B0B286tJkafVYnBhNGo4N3poQ2c&usp=drive_web&tid=0B0B286tJkafVSENVcU1RQVBfSzg#list) (versions V2rev2 and V10 respectively) to establish communication over RS485 between 2 or more INDIOs, with one acting as the Master and the other one(s) as the Slave(s). This is one way of expanding the Industruino's number of I/O pins.
-
-Basic configuration of the above Modbus RTU libraries:
-```
-#define baud       9600   // use 9600 on D21G, higher rates may not work
-#define timeout    1000
-#define polling    20    // the scan rate
-#define retry_count 10
-// used to toggle the receive/transmit pin on the driver
-#define TxEnablePin 9                                                           // INDUSTRUINO RS485
-
-modbus_configure(&Serial, baud, SERIAL_8N2, timeout, polling, retry_count, TxEnablePin, packets, TOTAL_NO_OF_PACKETS, regs);
-```
-For more information see the examples on our blog, e.g. [Modbus RTU between 2 INDIOs](https://industruino.com/blog/our-news-1/post/modbus-rtu-master-and-slave-14).
+For Modbus RTU, see below.
 
 
 # RTC
@@ -518,7 +505,8 @@ For AVR watchdogs on the 1286 and 32u4, see [here](https://industruino.com/page/
 
 Modbus is a serial communications protocol popular in industry. It uses a Master/Slave(s) configuration, and comes in 2 types:
 * Modbus RTU: using an RS485 port, available on the Industruino IND.I/O
-  * suggested library: [SimpleModbus](https://code.google.com/archive/p/simple-modbus/)
+  * suggested library: [SimpleModbusMaster and SimpleModbusSlave libraries](https://drive.google.com/folderview?id=0B0B286tJkafVYnBhNGo4N3poQ2c&usp=drive_web&tid=0B0B286tJkafVSENVcU1RQVBfSzg#list) (versions V2rev2 and V10 respectively)
+  * simple master example: [demo code](https://github.com/Industruino/democode/blob/master/industruinoD21G-modbusRTU-master-example/industruinoD21G-modbusRTU-master-example.ino) 
   * example: [master: wind speed sensor](https://industruino.com/blog/our-news-1/post/modbus-rtu-on-industruino-ind-i-o-11)
   * example: [master+slave: I/O expansion](https://industruino.com/blog/our-news-1/post/modbus-rtu-master-and-slave-14)
 * Modbus TCP: using Ethernet, with the Industruino Ethernet module
@@ -526,6 +514,7 @@ Modbus is a serial communications protocol popular in industry. It uses a Master
   * example: [slave: switching application](https://industruino.com/blog/our-news-1/post/ind-i-o-switching-application-with-modbus-tcp-12)
 
 Modbus uses 16-bit registers, we so often need to convert these from/to 32-bit `float` and `long` types; you can use the functions described [here](https://industruino.com/blog/our-news-1/post/modbus-tips-for-industruino-26).
+
 
 # TFTP
 
