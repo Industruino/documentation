@@ -31,11 +31,13 @@ For D21G
 #include <Ethernet2.h>
 ```
 
-Note: it is possible to use the standard Ethernet library that comes with the Arduino IDE, but that requires a modification to the file ```arduino-1.8.x/libraries/Ethernet/src/utility/w5100.h```. [Line 48](https://github.com/arduino-libraries/Ethernet/blob/75a3c37b5e513305b82e926ca6a4f8190f536c9d/src/utility/w5100.h#L48) defines the SPI speed as 8MHz; that needs to be reduced to 4MHz for use with the Industruino Ethernet module. The line should read:
+Note 1: it is possible to use the standard Ethernet library that comes with the Arduino IDE, but that requires a modification to the file ```arduino-1.8.x/libraries/Ethernet/src/utility/w5100.h```. [Line 48](https://github.com/arduino-libraries/Ethernet/blob/75a3c37b5e513305b82e926ca6a4f8190f536c9d/src/utility/w5100.h#L48) defines the SPI speed as 8MHz; that needs to be reduced to 4MHz for use with the Industruino Ethernet module. The line should read:
 ```
 #define SPI_ETHERNET_SETTINGS SPISettings(4000000, MSBFIRST, SPI_MODE0)   // for Industruino 4MHz
 ```
-The standard library examples will work after you change ```Serial``` to ```SerialUSB```.
+The standard library examples will work after you change ```Serial``` to ```SerialUSB```.    
+
+Note 2: it is possible to use SSL (for HTTPS, MQTT over SSL) with the [SSLClient](https://github.com/OPEnSLab-OSU/SSLClient) library and in that case it is recommended to use the EthernetLarge library of the same authors to increase the buffers. See this [blog post](https://industruino.com/blog/our-news-1/post/industruino-mqtt-over-ssl-48#scrollTop=0). 
 
 
 ### MAC address
