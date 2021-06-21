@@ -476,7 +476,7 @@ For [Modbus RTU](#modbus), see below.
 
 # RTC
 
-Industruinos with the D21G topboard have a built-in RTC (MCP79402 with I2C 0x57 and 0x6F) that can be used with this [library](https://github.com/Industruino/MCP7940-RTC-Library). A simple example that displays the date and time on the LCD can be found [here](https://github.com/Industruino/democode/blob/master/rtc_D21G/rtc_D21G.ino). The RTC also contains a unique 8-byte number (EUI-64) that can be used as a MAC address, see above in the Ethernet section.
+Industruinos with the D21G topboard have a built-in RTC (MCP79402 with I2C 0x57 and 0x6F) that can be used with this [library](https://github.com/Industruino/MCP7940-RTC-Library). A simple example that displays the date and time on the LCD can be found [here](https://github.com/Industruino/democode/blob/master/rtc_D21G/rtc_D21G.ino). The RTC also contains a unique 8-byte number (EUI-64) that can be used as a MAC address, see above in the Ethernet section. A customer has written a more comprehensive library [IndioRtc](https://github.com/NeilSWells/IndioRTC).
 
 
 # EEPROM
