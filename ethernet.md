@@ -3,7 +3,7 @@
 *Current version: HW REV: 5.1*
 
 The Industruino Ethernet module has several functions:
-1. [Ethernet](#ethernet2-library) interface
+1. [Ethernet](#ethernet) interface
 2. [FRAM](#fram) non-volatile memory
 3. [SD card](#sd-card) interface
 
@@ -19,9 +19,11 @@ For a plug&play test sketch, see this [IndustruinoEthernetClient](https://github
 **The Industruino IND.I/O has to be powered by 8-28V to make the Ethernet module work; it does not work with USB power only.**
 
 
-# Ethernet2 library
+# Ethernet
 
-If you have the D21G Topboard please use Industruino version of the [Ethernet2 library](https://github.com/Industruino/Ethernet2). This is a fork of the original Ethernet2, with one important change: the SPI speed is set to 4MHz in this [file, line 25](https://github.com/Industruino/Ethernet2/blob/master/src/utility/w5500.cpp).
+### Industruino Ethernet2 library
+
+If you want an Ethernet library that works without any modifications, please use Industruino version of the [Ethernet2 library](https://github.com/Industruino/Ethernet2). This is a fork of the original Ethernet2, with one important change: the SPI speed is set to 4MHz in this [file, line 25](https://github.com/Industruino/Ethernet2/blob/master/src/utility/w5500.cpp).
 
 The Ethernet module is connected over SPI, so we also need the SPI library.
 
@@ -31,13 +33,17 @@ For D21G
 #include <Ethernet2.h>
 ```
 
-Note 1: it is possible to use the standard Ethernet library that comes with the Arduino IDE, but that requires a modification to the file ```arduino-1.8.x/libraries/Ethernet/src/utility/w5100.h```. [Line 48](https://github.com/arduino-libraries/Ethernet/blob/75a3c37b5e513305b82e926ca6a4f8190f536c9d/src/utility/w5100.h#L48) defines the SPI speed as 8MHz; that needs to be reduced to 4MHz for use with the Industruino Ethernet module. The line should read:
+### Standard Ethernet library
+
+It is possible to use the standard Ethernet library that comes with the Arduino IDE, and has some extra features, but that requires a modification to the file ```arduino-1.8.x/libraries/Ethernet/src/utility/w5100.h```. [Line 48](https://github.com/arduino-libraries/Ethernet/blob/75a3c37b5e513305b82e926ca6a4f8190f536c9d/src/utility/w5100.h#L48) defines the SPI speed as 8MHz; that needs to be reduced to 4MHz for use with the Industruino Ethernet module. The line should read:
 ```
 #define SPI_ETHERNET_SETTINGS SPISettings(4000000, MSBFIRST, SPI_MODE0)   // for Industruino 4MHz
 ```
 The standard library examples will work after you change ```Serial``` to ```SerialUSB```.    
 
-Note 2: it is possible to use SSL (for HTTPS, MQTT over SSL) with the [SSLClient](https://github.com/OPEnSLab-OSU/SSLClient) library and in that case it is recommended to use the EthernetLarge library of the same authors to increase the buffers. See this [blog post](https://industruino.com/blog/our-news-1/post/industruino-mqtt-over-ssl-48#scrollTop=0). 
+### SSL
+
+It is possible to use SSL (for HTTPS, MQTT over SSL) with the [SSLClient](https://github.com/OPEnSLab-OSU/SSLClient) library and in that case it is recommended to use the EthernetLarge library of the same authors to increase the buffers. See this [blog post](https://industruino.com/blog/our-news-1/post/industruino-mqtt-over-ssl-48#scrollTop=0). This library uses TLS1.2 by default; if this is not available, you can try [this](https://github.com/OPEnSLab-OSU/SSLClient/blob/master/src/SSLClient.cpp#L45)
 
 
 ### MAC address
