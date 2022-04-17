@@ -510,6 +510,7 @@ Modbus is a serial communications protocol popular in industry. It uses a Master
   * example: [master: wind speed sensor](https://industruino.com/blog/our-news-1/post/modbus-rtu-on-industruino-ind-i-o-11)
   * example: [master+slave: I/O expansion](https://industruino.com/blog/our-news-1/post/modbus-rtu-master-and-slave-14)
   * you may also try the updated and maintained version at [SimpleModbus NG](https://github.com/angeloc/simplemodbusng)
+  * it is also possible to use the official [Arduino Modbus library](https://github.com/arduino-libraries/ArduinoModbus) by editing 2 files in the ArduinoRS485 library as described [here](https://github.com/Industruino/documentation/issues/3)
 * Modbus TCP: using Ethernet, with the Industruino Ethernet module
   * using the official [Arduino Modbus library](https://github.com/arduino-libraries/ArduinoModbus) and example: [Modbus TCP](https://industruino.com/blog/our-news-1/post/modbus-tcp-between-2-industruinos-43)
   * also works with library [MgsModbus](http://myarduinoprojects.com/modbus.html) and example: [slave: switching application](https://industruino.com/blog/our-news-1/post/ind-i-o-switching-application-with-modbus-tcp-12)
