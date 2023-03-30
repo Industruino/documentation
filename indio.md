@@ -505,14 +505,15 @@ For AVR watchdogs on the 1286 and 32u4, see [here](https://industruino.com/page/
 
 Modbus is a serial communications protocol popular in industry. It uses a Master/Slave(s) configuration, and comes in 2 types:
 * Modbus RTU: using an RS485 port, available on the Industruino IND.I/O
-  * suggested library: the original SimpleModbusMaster and SimpleModbusSlave by Juan Bester, cloned version available [here](https://github.com/charlesbaynham/simple-modbus)
+  * the standard [ArduinoModbus library](https://github.com/arduino-libraries/ArduinoModbus) also seems to work, as documented in this [blog post](https://industruino.com/blog/our-news-1/post/modbus-rtu-with-the-standard-arduino-libraries-53) but we have not tested it extensively. a customer had earlier suggested another way to make this library work as described [here](https://github.com/Industruino/documentation/issues/3)
+  * suggested library since 2017: the original SimpleModbusMaster and SimpleModbusSlave by Juan Bester, cloned version available [here](https://github.com/charlesbaynham/simple-modbus)
   * simple master example: [demo code](https://github.com/Industruino/democode/blob/master/industruinoD21G-modbusRTU-master-example/industruinoD21G-modbusRTU-master-example.ino) 
   * example: [master: wind speed sensor](https://industruino.com/blog/our-news-1/post/modbus-rtu-on-industruino-ind-i-o-11)
   * example: [master+slave: I/O expansion](https://industruino.com/blog/our-news-1/post/modbus-rtu-master-and-slave-14)
   * you may also try the updated and maintained version at [SimpleModbus NG](https://github.com/angeloc/simplemodbusng)
-  * it is also possible to use the official [Arduino Modbus library](https://github.com/arduino-libraries/ArduinoModbus) by editing 2 files in the ArduinoRS485 library as described [here](https://github.com/Industruino/documentation/issues/3)
+ 
 * Modbus TCP: using Ethernet, with the Industruino Ethernet module
-  * using the official [Arduino Modbus library](https://github.com/arduino-libraries/ArduinoModbus) and example: [Modbus TCP](https://industruino.com/blog/our-news-1/post/modbus-tcp-between-2-industruinos-43)
+  * using the official [ArduinoModbus library](https://github.com/arduino-libraries/ArduinoModbus) and example: [Modbus TCP](https://industruino.com/blog/our-news-1/post/modbus-tcp-between-2-industruinos-43)
   * also works with library [MgsModbus](http://myarduinoprojects.com/modbus.html) and example: [slave: switching application](https://industruino.com/blog/our-news-1/post/ind-i-o-switching-application-with-modbus-tcp-12)
 
 Modbus uses 16-bit registers, we so often need to convert these from/to 32-bit `float` and `long` types; you can use the functions described [here](https://industruino.com/blog/our-news-1/post/modbus-tips-for-industruino-26).
